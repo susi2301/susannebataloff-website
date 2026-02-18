@@ -95,5 +95,5 @@ export const SITE_CONTENT: SiteContent = {
   },
 };
 
-// #403E39
+// #ff0000
 
