@@ -26,7 +26,7 @@ export const SITE_CONFIG: SiteConfig = {
 export const SITE_CONTENT: SiteContent = {
   hero: {
     name: "Dani Lipke",
-    specialty: "Game Developemer & Founder of Thirteen Games",
+    specialty: "Game Developer & Founder of Thirteen Games",
     summary:
       "based in Cologne Germany",
     email: "Danijasonlipke@gmail.com",
