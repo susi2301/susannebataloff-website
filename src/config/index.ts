@@ -6,7 +6,7 @@ export const SITE_CONFIG: SiteConfig = {
   description:
     "Indie Game Developer and founder of Thirteen Games",
   lang: "de",
-  siteLogo: "",
+  siteLogo: "/logo_small.png",
   navLinks: [
     { text: "Experience", href: "#experience" },
     { text: "Projects", href: "#projects" },
