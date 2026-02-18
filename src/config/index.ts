@@ -6,7 +6,7 @@ export const SITE_CONFIG: SiteConfig = {
   description:
     "Indie Game Developer and founder of Thirteen Games",
   lang: "de",
-  siteLogo: "/alejandro-small.jpg",
+  siteLogo: "/logo_small.png",
   navLinks: [
     { text: "Experience", href: "#experience" },
     { text: "Projects", href: "#projects" },
@@ -22,7 +22,7 @@ export const SITE_CONFIG: SiteConfig = {
   socialImage: "/zen-og.png",
   canonicalURL: "https://astro-zen.vercel.app",
 };
-
+ 
 export const SITE_CONTENT: SiteContent = {
   hero: {
     name: "Dani Lipke",
