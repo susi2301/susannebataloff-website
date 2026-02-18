@@ -44,6 +44,5 @@ export interface AboutProps {
 }
 
 export interface HeaderProps {
-  siteLogo: string;
-  navLinks: { text: string; href: string }[];
+  navLinks: { href: string; text: string }[];
 }

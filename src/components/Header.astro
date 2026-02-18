@@ -5,21 +5,12 @@ import type { HeaderProps } from "@types";
 
 type Props = HeaderProps;
 
-const { siteLogo, navLinks } = Astro.props;
+const {navLinks } = Astro.props;
 ---
 
 <header
   class="sticky top-0 z-50 mx-auto flex max-w-5xl animate-slide-in justify-between bg-black px-5 py-6"
 >
-  <a href="/" aria-label="Home link">
-    <Image
-      class="rounded-full"
-      src={siteLogo}
-      width="120"
-      height="120"
-      alt="website logo"
-    />
-  </a>
 
   <button
     type="button"
