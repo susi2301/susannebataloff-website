@@ -25,17 +25,17 @@ export const SITE_CONFIG: SiteConfig = {
 
 export const SITE_CONTENT: SiteContent = {
   hero: {
-    name: "Thirteen Games",
-    specialty: "Game Developement",
+    name: "Dani Lipke",
+    specialty: "Game Developemer & Founder of Thirteen Games",
     summary:
-      "Developer & Game Desinger based in Cologne Germany, Found of Thirteen Games",
+      "based in Cologne Germany",
     email: "Danijasonlipke@gmail.com",
   },
   experience: [
     {
       company: "Thirteen Games",
       position: "Founder",
-      startDate: "Jnauary 2026",
+      startDate: "January 2026",
       endDate: "To this Day",
       summary: [
         "Implemented advanced memory management and code optimization techniques, resulting in a reduction in application load time by 40% and a decrease in crashes by 25%. This significantly improved user experience and increased user retention by 20%.",
