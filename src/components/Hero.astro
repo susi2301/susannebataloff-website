@@ -5,15 +5,23 @@ type Props = HeroProps;
 const { name, specialty, summary, email } = Astro.props;
 ---
 
-<section
-  class="min-h-screen flex flex-col items-center justify-center text-center py-10 md:py-14"
-  id="hero"
->
+<section class="pt-10 pb-16 text-center" id="hero">
+
+  <!-- Banner -->
+  <div class="mb-10">
+    <img
+      src="/thirteen-banner.png"
+      alt="Thirteen Games"
+      class="mx-auto w-full max-w-3xl"
+    />
+  </div>
+
   <h1
-    class="mb-1.5 font-serif text-7xl font-bold tracking-tightest text-white sm:text-8xl md:mb-0 md:text-9xl"
+    class="mb-2 font-serif text-7xl font-bold tracking-tightest text-white sm:text-8xl md:text-9xl"
   >
     {name}
   </h1>
+
   <p
     class="mb-9 font-serif text-4xl leading-[46px] font-bold tracking-tighter text-primary sm:text-5xl md:text-6xl"
   >
