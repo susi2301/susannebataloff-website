@@ -1,8 +1,9 @@
-export interface SiteConfig extends HeaderProps {
+export interface SiteConfig {
   title: string;
   description: string;
   lang: string;
   author: string;
+  navLinks: { href: string; text: string }[];
   socialLinks: { text: string; href: string }[];
   socialImage: string;
   canonicalURL?: string;
