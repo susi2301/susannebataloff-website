@@ -8,13 +8,22 @@ const { name, specialty, summary, email } = Astro.props;
 <section class="relative text-center" id="hero">
 
   <div class="relative h-[320px] md:h-[420px] overflow-hidden w-screen left-1/2 -translate-x-1/2">
+  <img
+    src="/banner-backround"
+    alt=""
+    class="absolute inset-0 w-full h-full object-cover"
+  />
+  <div class="absolute inset-0 bg-black opacity-40"></div>
+  
+  <!-- Logo zentriert über dem Banner -->
+  <div class="absolute inset-0 flex items-center justify-center">
     <img
-      src="/thirteen-banner.png"
-      alt="Thirteen Games"
-      class="absolute inset-0 w-full h-full object-cover"
+      src="/logo-thirteengames"
+      alt="Thirteen Games Logo"
+      class="h-48 md:h-72 w-auto drop-shadow-2xl"
     />
-    <div class="absolute inset-0 bg-black opacity-40"></div>
   </div>
+</div>
 
   <div class="bg-black px-6 py-8">
     <h1 class="font-serif text-5xl font-bold text-white sm:text-7xl md:text-8xl">
