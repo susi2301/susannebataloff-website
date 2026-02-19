@@ -29,9 +29,9 @@ const { name, specialty, summary, email } = Astro.props;
   <p class="mb-10 text-base text-neutral md:text-lg">
     {summary}
   </p>
-  
+  <a
     class="inline-block rounded-full bg-primary px-10 py-5 text-sm font-medium text-white transition hover:scale-105"
-    href={`mailto:${email}`}
+    href={"mailto:" + email}
   >
     Get in Touch
   </a>
