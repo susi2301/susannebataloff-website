@@ -7,7 +7,7 @@ export const SITE_CONFIG: SiteConfig = {
     "Indie Game Developer and founder of Thirteen Games",
   lang: "de",
   navLinks: [
-  { text: "Projects", href: "#projects" },
+  { text: "Projects", href: "/#projects" },
   { text: "About Me", href: "/me" },
   ],
   socialLinks: [
