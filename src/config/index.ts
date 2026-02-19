@@ -2,7 +2,7 @@ import type { SiteConfig, SiteContent } from "../types";
 
 export const SITE_CONFIG: SiteConfig = {
   title: "Thirteen Games - Indie Game Studio",
-  author: "Dani Lipke",
+  author: "Thirteen Games",
   description:
     "Indie Game Developer and founder of Thirteen Games",
   lang: "de",
@@ -37,10 +37,8 @@ export const SITE_CONTENT: SiteContent = {
       startDate: "January 2026",
       endDate: "To this Day",
       summary: [
-        "Implemented advanced memory management and code optimization techniques, resulting in a reduction in application load time by 40% and a decrease in crashes by 25%. This significantly improved user experience and increased user retention by 20%.",
-        "I led a team of developers in building and integrating new features using Jetpack Android components such as LiveData and ViewModel. This enabled us to build scalable and maintainable applications, reducing the crash rate by 20% and speeding up the time to delivery of new features by 15%.",
-        "Integrated Google Pay for in-app purchases, resulting in a 35% increase in mobile transaction revenue. Additionally, implemented Firebase Analytics to gain insights into user behavior, enabling data-driven optimizations and a 30% increase in user retention.",
-      ],
+        "I founded Thirteen Games with the start of my first project",
+      ]
     },
     {
       company: "",
@@ -63,18 +61,18 @@ export const SITE_CONTENT: SiteContent = {
   ],
   projects: [
     {
+      name: "PROJECT X",
+      summary: "WORK IN PROGRESS",
+      linkPreview: "/",
+      linkSource: "https://assetstore.unity.com/packages/slug/361974",
+      image: "/simple-light-flicker.png",
+    },
+    {
       name: "Simple Light Flicker",
       summary: "A simple solution for Ambience and Atmosphere inside the Unity Game Engine",
       linkPreview: "/",
-      linkSource: "https://github.com/immois/astro-zen",
-      image: "/spotifu.png",
-    },
-    {
-      name: "Shopp App",
-      summary: "An e-commerce platform that replicates Shopify's key features.",
-      linkPreview: "/",
-      linkSource: "https://github.com/immois/astro-zen",
-      image: "/shopify-clon.png",
+      linkSource: "https://assetstore.unity.com/packages/slug/361974",
+      image: "/simple-light-flicker.png",
     },
     {
       name: "ClonTagram",
