@@ -1,104 +1,39 @@
 ---
-import Menu from "@icons/Menu.astro";
-import { Image } from "astro:assets";
-import type { HeaderProps } from "@types";
+import type { HeroProps } from "@types";
+type Props = HeroProps;
 
-type Props = HeaderProps;
-
-const { navLinks } = Astro.props;
+const { name, specialty, summary, email } = Astro.props;
 ---
 
-<header
-  class="sticky top-0 z-50 mx-auto flex max-w-5xl animate-slide-in justify-between bg-black px-5 py-6"
->
-  <a href="/" aria-label="Home link">
-  </a>
+<section class="relative text-center" id="hero">
 
-  <button
-    type="button"
-    id="menu-button"
-    class="px-1.5 text-neutral sm:hidden"
-    aria-expanded="false"
-    aria-controls="main-menu"
-  >
-    <Menu />
-  </button>
+  <div class="relative h-[320px] md:h-[420px] overflow-hidden w-screen left-1/2 -translate-x-1/2">
+    <img
+      src="/thirteen-banner.png"
+      alt="Thirteen Games"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-black opacity-40"></div>
+  </div>
 
-  <nav
-    class="absolute top-20 right-5 hidden rounded-xl border border-neutral/40 bg-black px-4 py-5 text-neutral sm:static sm:block sm:border-0 sm:bg-transparent sm:p-0"
-    id="main-menu"
-  >
-    <ul class="gap-2 sm:flex">
-      {
-        navLinks.map((link) => (
-          <li class="relative">
-            <a
-              class={`nav-item relative block p-2 text-sm font-medium transition-all duration-500 after:absolute after:bottom-0 after:left-2/4 after:h-2 after:w-1 after:-translate-x-2/4 after:text-primary after:opacity-0 after:content-['•'] hover:text-white`}
-              href={link.href}
-            >
-              {link.text}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </nav>
-</header>
+  <div class="bg-black px-6 py-8">
+    <h1 class="font-serif text-5xl font-bold text-white sm:text-7xl md:text-8xl">
+      {name}
+    </h1>
+    <p class="mt-4 font-serif text-2xl font-bold text-primary sm:text-3xl md:text-4xl">
+      {specialty}
+    </p>
+  </div>
 
-<script>
-  // Toggle mobile menu
-  const button = document.querySelector("#menu-button");
-  const menu = document.querySelector("#main-menu");
-  const navItems = document.querySelectorAll("#main-menu > ul > li > a");
-
-  const toggleMenu = () => {
-    menu?.classList.toggle("hidden");
-    const isHidden = menu?.classList.contains("hidden");
-    button?.setAttribute("aria-expanded", `${!isHidden}`);
-  };
-
-  button?.addEventListener("click", toggleMenu);
-  navItems.forEach((item) => {
-    item?.addEventListener("click", toggleMenu);
-  });
-
-  // Update navigation based on scroll position with Intersection Observer
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          navItems.forEach((item) => {
-            if (item.getAttribute("href") === `#${entry.target.id}`) {
-              item.classList.add("text-white", "md:after:opacity-100");
-            } else {
-              item.classList.remove("text-white", "md:after:opacity-100");
-            }
-          });
-        }
-      });
-    },
-    { threshold: 0.5 },
-  );
-
-  document.querySelectorAll("section").forEach((section) => {
-    observer.observe(section);
-  });
-
-  // Cleanup observer
-  document.onvisibilitychange = () => {
-    if (document.visibilityState === "hidden") {
-      observer.disconnect();
-    } else {
-      document.querySelectorAll("section").forEach((section) => {
-        observer.observe(section);
-      });
-    }
-  };
-</script>
-
-<style>
-  header {
-    animation-timeline: scroll();
-    animation-range: 0 650px;
-  }
-</style>
+  <div class="max-w-2xl mx-auto px-6 py-10">
+    <p class="mb-10 text-base text-neutral md:text-lg">
+      {summary}
+    </p>
+    
+      class="inline-block rounded-full bg-primary px-10 py-5 text-sm font-medium text-white transition hover:scale-105"
+      href={`mailto:${email}`}
+    >
+      Get in Touch
+    </a>
+  </div>
+</section>
