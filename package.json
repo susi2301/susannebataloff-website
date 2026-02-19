@@ -13,6 +13,7 @@
     "@astrojs/check": "^0.9.6",
     "@fontsource-variable/gabarito": "^5.1.0",
     "@fontsource/be-vietnam-pro": "^5.1.0",
+    "@fontsource/jacquard-24": "^5.2.8",
     "@tailwindcss/vite": "^4.1.17",
     "astro": "^5.17.1",
     "tailwindcss": "^4.1.17",
