@@ -47,12 +47,18 @@ const { projects } = Astro.props;
                 </div>
               </div>
 
-              <div class="px-5 py-5">
+              <div class="relative px-5 py-5 border-t border-neutral/10">
+              <div class="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-transparent"></div>
+              <div class="relative">
                 <h3 class="font-serif text-xl font-medium text-primary">
                   {name}
                 </h3>
-                <p class="mt-1 text-sm text-neutral/50">{category}</p>
+                <p class="mt-1 text-sm text-neutral/50 flex items-center gap-2">
+                  <span class="inline-block h-1.5 w-1.5 rounded-full bg-primary/60"></span>
+                  {category}
+                </p>
               </div>
+            </div>
             </div>
           </a>
         );
@@ -77,6 +83,10 @@ const { projects } = Astro.props;
     transform-style: preserve-3d;
     will-change: transform;
     position: relative;
+    background: linear-gradient(160deg, rgba(28, 35, 45, 0.9) 0%, rgba(14, 13, 12, 0.95) 100%);
+    box-shadow: 
+      0 2px 20px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(253, 245, 219, 0.05);
   }
 
   .tilt-card::before {
@@ -97,8 +107,29 @@ const { projects } = Astro.props;
     animation: glow-spin 4s linear infinite;
   }
 
+  .tilt-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(149, 24, 16, 0.15);
+    transition: border-color 0.3s ease;
+    pointer-events: none;
+  }
+
   .tilt-card:hover::before {
     opacity: 1;
+  }
+
+  .tilt-card:hover::after {
+    border-color: rgba(149, 24, 16, 0.4);
+  }
+
+  .tilt-card:hover {
+    box-shadow: 
+      0 20px 50px rgba(149, 24, 16, 0.25),
+      0 4px 20px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(253, 245, 219, 0.08);
   }
 
   @keyframes glow-spin {
@@ -110,10 +141,6 @@ const { projects } = Astro.props;
     syntax: "<angle>";
     initial-value: 0deg;
     inherits: false;
-  }
-
-  .tilt-card:hover {
-    box-shadow: 0 20px 50px rgba(149, 24, 16, 0.25);
   }
 
   .grain-overlay {
