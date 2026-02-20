@@ -9,10 +9,12 @@ const { name, specialty, summary } = Astro.props;
 
   <div class="relative h-[320px] md:h-[420px] overflow-hidden w-screen left-1/2 -translate-x-1/2">
     <img
+      <img
       src="/banner-backround.jpg"
       alt=""
-      class="absolute inset-0 w-full h-[130%] object-cover will-change-transform"
+      class="absolute inset-0 w-full h-[160%] object-cover will-change-transform"
       id="parallax-banner"
+    />
     />
     <div class="absolute inset-0 bg-black opacity-40"></div>
 
@@ -98,7 +100,7 @@ const { name, specialty, summary } = Astro.props;
   window.addEventListener('scroll', () => {
     if (!banner) return;
     const scrollY = window.scrollY;
-    banner.style.transform = `translateY(${scrollY * 0.4}px)`;
+    banner.style.transform = `translateY(${scrollY * 0.6}px)`;
   }, { passive: true });
 
   // Scroll Reveal
