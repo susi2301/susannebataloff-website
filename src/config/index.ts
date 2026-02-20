@@ -6,16 +6,17 @@ export const SITE_CONFIG: SiteConfig = {
   description: "Thirteen Games - Indie Game Studio",
   lang: "de",
   navLinks: [
-    {
-      text: "Projects",
-      href: "/#projects",
-      children: [
-        { text: "You should choose", href: "/projects/you-should-choose" },
-        { text: "Simple Light Flicker", href: "/projects/simple-light-flicker" },
-        { text: "Staged", href: "/projects/staged" },
-      ],
-    },
-    { text: "About Me", href: "/me" },
+  {
+    text: "Projects",
+    href: "/#projects",
+    children: [
+      { text: "You should choose", href: "/projects/you-should-choose" },
+      { text: "Simple Light Flicker", href: "/projects/simple-light-flicker" },
+      { text: "Staged", href: "/projects/staged" },
+      { text: "Game Jams", href: "/projects/gamejams" },
+    ],
+  },
+  { text: "About Me", href: "/me" },
   ],
   socialLinks: [
     { text: "LinkedIn", href: "https://www.linkedin.com/in/dani-lipke-066a81372/" },
