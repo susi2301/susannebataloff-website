@@ -41,6 +41,7 @@ export interface ProjectProps {
   image: string;
   gallery?: string[];
   techStack?: string[];
+  youtubeId?: string;
   linkPreview?: string;
   linkSource?: string;
 }

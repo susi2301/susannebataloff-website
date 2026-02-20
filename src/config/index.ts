@@ -77,26 +77,25 @@ export const SITE_CONTENT: SiteContent = {
       `,
       image: "/Comingsoon-banner.png",
       gallery: ["/Comingsoon-banner.png"],
-      techStack: ["Unity", "C#", "Blender", "FMOD"],
+      techStack: ["Unity", "C#",],
       linkPreview: "/",
       linkSource: "https://assetstore.unity.com/packages/slug/361974",
     },
     {
-      name: "Simple Light Flicker",
-      slug: "simple-light-flicker",
-      category: "Unity Asset",
-      summary: "A simple solution for Ambience and Atmosphere inside the Unity Game Engine",
-      info: "A lightweight Unity tool that adds dynamic flickering effects to any light source. Perfect for creating atmospheric environments like dungeons, horror scenes, or cozy fireplaces.",
-      description: `
-        <p>Simple Light Flicker is a lightweight, easy-to-use Unity asset that brings dynamic flickering effects to any light source in your scene.</p>
-        <p>Whether you're building a horror game, a cozy fireplace scene, or a dungeon crawler — this tool helps you create the right atmosphere with minimal setup.</p>
-        <p>Features include multiple flicker patterns, randomized intensity, color temperature shifts, and full inspector control with no coding required.</p>
-      `,
-      image: "/simple-light-flicker.png",
-      gallery: ["/simple-light-flicker.png"],
-      techStack: ["Unity", "C#"],
-      linkPreview: "/",
-      linkSource: "https://assetstore.unity.com/packages/slug/361974",
+    name: "Simple Light Flicker",
+    slug: "simple-light-flicker",
+    category: "Unity Asset",
+    summary: "A simple solution for Ambience and Atmosphere inside the Unity Game Engine",
+    info: "A lightweight Unity tool that adds dynamic flickering effects to any light source.",
+    description: `
+      <p>Simple Light Flicker is a lightweight, easy-to-use Unity asset...</p>
+    `,
+    image: "/simple-light-flicker.png",
+    gallery: ["/simple-light-flicker.png"],
+    techStack: ["Unity", "C#"],
+    youtubeId: "https://www.youtube.com/watch?time_continue=8&v=kek60hHZMSc&embeds_referring_euri=https%3A%2F%2Fassetstore.unity.com%2F&source_ve_path=Mjg2NjY",
+    linkPreview: "/",
+    linkSource: "https://assetstore.unity.com/packages/slug/361974",
     },
     {
       name: "Staged",
@@ -111,7 +110,7 @@ export const SITE_CONTENT: SiteContent = {
       `,
       image: "/staged-keyart.png",
       gallery: ["/staged-keyart.png"],
-      techStack: ["FMOD", "Reaper", "Unity"],
+      techStack: ["Ableton", "Unreal Engine"],
       linkPreview: "https://store.steampowered.com/app/3534100/Staged/",
       linkSource: "https://store.steampowered.com/app/3534100/Staged/",
     },
