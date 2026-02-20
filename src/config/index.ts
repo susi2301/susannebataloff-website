@@ -11,11 +11,10 @@ export const SITE_CONFIG: SiteConfig = {
   { text: "About Me", href: "/me" },
   ],
   socialLinks: [
-    { text: "Twitter", href: "https://github.com/immois/astro-zen" },
-    { text: "LinkedIn", href: "https://github.com/immois/astro-zen" },
-    { text: "Github", href: "https://github.com/immois/astro-zen" },
-    { text: "Youtube", href: "https://github.com/immois/astro-zen" },
-    { text: "Dribbble", href: "https://github.com/immois/astro-zen" },
+    { text: "LinkedIn", href: "https://www.linkedin.com/in/dani-lipke-066a81372/" },
+    { text: "Github", href: "https://github.com/Dambthirteen" },
+    { text: "Youtube", href: "https://www.youtube.com/@Thirteen-games" },
+    { text: "Steam", href: "https://github.com/immois/astro-zen" },
   ],
   socialImage: "/zen-og.png",
   canonicalURL: "https://astro-zen.vercel.app",
@@ -24,7 +23,7 @@ export const SITE_CONFIG: SiteConfig = {
 export const SITE_CONTENT: SiteContent = {
   hero: {
     name: "Thirteen Games",
-    specialty: "by Dani Lipke",
+    specialty: "INDIE GAME STUDIO",
     summary:
       "Cologne Germany",
     email: "Danijasonlipke@gmail.com",
