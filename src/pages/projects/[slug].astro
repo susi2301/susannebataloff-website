@@ -95,8 +95,10 @@ const { name, category, description, image, gallery, techStack, linkPreview, lin
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {gallery.map((img, i) => (
             <div
-              class="reveal reveal-scale overflow-hidden rounded-lg"
+              class="reveal reveal-scale overflow-hidden rounded-lg cursor-pointer gallery-thumb"
               style={`transition-delay: ${550 + i * 120}ms;`}
+              data-src={img}
+              data-alt={`${name} screenshot ${i + 1}`}
             >
               <Image
                 class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
@@ -110,6 +112,28 @@ const { name, category, description, image, gallery, techStack, linkPreview, lin
         </div>
       </div>
     )}
+
+    {/* Lightbox */}
+    <div id="lightbox" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/95 backdrop-blur-sm">
+      <button id="lightbox-close" class="absolute top-6 right-6 text-white/60 transition hover:text-white" aria-label="Close">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+      <button id="lightbox-prev" class="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 transition hover:text-white" aria-label="Previous">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+      </button>
+      <button id="lightbox-next" class="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 transition hover:text-white" aria-label="Next">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6" />
+        </svg>
+      </button>
+      <img id="lightbox-img" class="max-h-[85vh] max-w-[90vw] rounded-lg object-contain shadow-2xl" src="" alt="" />
+      <p id="lightbox-counter" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-sm text-white/40"></p>
+    </div>
 
     {/* Back Link */}
     <div class="reveal reveal-up mt-12 border-t border-neutral/20 pt-8" style="transition-delay: 600ms;">
@@ -126,6 +150,81 @@ const { name, category, description, image, gallery, techStack, linkPreview, lin
 
   </article>
 </Layout>
+
+<script>
+  const thumbs = document.querySelectorAll('.gallery-thumb');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxClose = document.getElementById('lightbox-close');
+  const lightboxPrev = document.getElementById('lightbox-prev');
+  const lightboxNext = document.getElementById('lightbox-next');
+  const lightboxCounter = document.getElementById('lightbox-counter');
+
+  let currentIndex = 0;
+  const images = Array.from(thumbs).map((t) => ({
+    src: t.getAttribute('data-src') || '',
+    alt: t.getAttribute('data-alt') || '',
+  }));
+
+  function openLightbox(index: number) {
+    currentIndex = index;
+    updateLightbox();
+    lightbox?.classList.remove('hidden');
+    lightbox?.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox?.classList.add('hidden');
+    lightbox?.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  function updateLightbox() {
+    if (!lightboxImg || !lightboxCounter) return;
+    lightboxImg.setAttribute('src', images[currentIndex].src);
+    lightboxImg.setAttribute('alt', images[currentIndex].alt);
+    lightboxCounter.textContent = `${currentIndex + 1} / ${images.length}`;
+
+    if (lightboxPrev) lightboxPrev.style.display = images.length > 1 ? 'block' : 'none';
+    if (lightboxNext) lightboxNext.style.display = images.length > 1 ? 'block' : 'none';
+  }
+
+  thumbs.forEach((thumb, i) => {
+    thumb.addEventListener('click', () => openLightbox(i));
+  });
+
+  lightboxClose?.addEventListener('click', closeLightbox);
+
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  lightboxPrev?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    updateLightbox();
+  });
+
+  lightboxNext?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    currentIndex = (currentIndex + 1) % images.length;
+    updateLightbox();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (lightbox?.classList.contains('hidden')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      updateLightbox();
+    }
+    if (e.key === 'ArrowRight') {
+      currentIndex = (currentIndex + 1) % images.length;
+      updateLightbox();
+    }
+  });
+</script>
 
 <style>
   .reveal {
