@@ -57,28 +57,34 @@ export const SITE_CONTENT: SiteContent = {
         "Developed and integrated a real-time vehicle tracking system using WebSockets, improving accuracy and data update in the application. This functionality increased user satisfaction by 30% and reduced customer service inquiries by 25%.",
     },
   ],
-  projects: [
-    {
-      name: "PROJECT X",
-      summary: "WORK IN PROGRESS",
-      linkPreview: "/",
-      linkSource: "https://assetstore.unity.com/packages/slug/361974",
-      image: "/simple-light-flicker.png",
-    },
-    {
-      name: "Simple Light Flicker",
-      summary: "A simple solution for Ambience and Atmosphere inside the Unity Game Engine",
-      linkPreview: "/",
-      linkSource: "https://assetstore.unity.com/packages/slug/361974",
-      image: "/simple-light-flicker.png",
-    },
-    {
-      name: "ClonTagram",
-      summary: "A social network that replicates the features of Instagram",
-      linkPreview: "/",
-      linkSource: "https://github.com/immois/astro-zen",
-      image: "/clone-ig.png",
-    },
+ projects: [
+  {
+    name: "PROJECT X",
+    category: "Game Development",
+    summary: "WORK IN PROGRESS",
+    info: "A mysterious upcoming title currently in early development. More details coming soon.",
+    linkPreview: "/",
+    linkSource: "https://assetstore.unity.com/packages/slug/361974",
+    image: "/simple-light-flicker.png",
+  },
+  {
+    name: "Simple Light Flicker",
+    category: "Unity Asset",
+    summary: "A simple solution for Ambience and Atmosphere inside the Unity Game Engine",
+    info: "A lightweight Unity tool that adds dynamic flickering effects to any light source. Perfect for creating atmospheric environments like dungeons, horror scenes, or cozy fireplaces.",
+    linkPreview: "/",
+    linkSource: "https://assetstore.unity.com/packages/slug/361974",
+    image: "/simple-light-flicker.png",
+  },
+  {
+    name: "ClonTagram",
+    category: "Sounddesign",
+    summary: "A social network that replicates the features of Instagram",
+    info: "Full-stack social media clone featuring real-time feeds, image uploads, stories, and user interactions built from scratch.",
+    linkPreview: "/",
+    linkSource: "https://github.com/immois/astro-zen",
+    image: "/clone-ig.png",
+  },
   ],
   about: {
     description: `
