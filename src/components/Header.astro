@@ -40,7 +40,7 @@ const { navLinks } = Astro.props;
               )}
             </a>
             {link.children && (
-              <ul class="dropdown-menu hidden sm:invisible sm:opacity-0 sm:absolute sm:top-full sm:left-0 sm:mt-1 sm:min-w-48 sm:rounded-lg sm:border sm:border-neutral/20 sm:bg-black sm:py-2 sm:shadow-xl sm:transition-all sm:duration-200 sm:group-hover:visible sm:group-hover:opacity-100 pl-4 sm:pl-0">
+              <ul class="dropdown-menu hidden sm:block sm:invisible sm:opacity-0 sm:absolute sm:top-full sm:left-0 sm:mt-1 sm:min-w-48 sm:rounded-lg sm:border sm:border-neutral/20 sm:bg-black sm:py-2 sm:shadow-xl sm:transition-all sm:duration-200 sm:group-hover:visible sm:group-hover:opacity-100 pl-4 sm:pl-0 sm:pointer-events-none sm:group-hover:pointer-events-auto">
                 {link.children.map((child) => (
                   <li>
                     <a
