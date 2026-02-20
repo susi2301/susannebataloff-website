@@ -3,14 +3,24 @@ import Section from "./Section.astro";
 import { Image } from "astro:assets";
 import type { AboutProps, HeroProps } from "@types";
 
-type Props = AboutProps & Pick<HeroProps, "name">;
+type Props = AboutProps & Pick<HeroProps, "name" | "email">;
 
-const { description, image, name } = Astro.props;
+const { description, image, name, email } = Astro.props;
 ---
 
 <Section text="About Me" href="about">
   <div class="flex flex-col items-center gap-12 md:flex-row md:gap-8">
-    <p class="w-auto text-base text-neutral md:pr-5" set:html={description} />
+    <div class="w-auto md:pr-5">
+      <p class="text-base text-neutral" set:html={description} />
+      <div class="mt-10">
+        <a 
+          class="inline-block rounded-full bg-primary px-10 py-5 text-sm font-medium text-white transition hover:scale-105"
+          href={"mailto:" + email}
+        >
+          Get in Touch
+        </a>
+      </div>
+    </div>
     <div
       class="h-80 w-64 flex-shrink-0 rotate-[5deg] bg-white p-4 md:rotate-[7deg]"
     >
