@@ -13,17 +13,17 @@ const { projects } = Astro.props;
 <Section text="Featured Projects" href="projects">
   <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
     {
-      projects.map(({ name, category, info, image, linkPreview, linkSource }, index) => {
+      projects.map(({ name, category, info, image, slug }, index) => {
         return (
-          <div
-            class="project-card opacity-0 translate-y-12"
+          <a
+            href={`/projects/${slug}`}
+            class="project-card block"
             style={`transition-delay: ${index * 150}ms;`}
             data-index={index}
           >
             <div
               class="tilt-card group relative overflow-hidden rounded-lg border border-neutral/20 bg-[#1c232d]/85 transition-all duration-300 ease-out"
             >
-              {/* Bild-Container */}
               <div class="relative h-56 w-full overflow-hidden sm:h-64">
                 <Image
                   class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
@@ -33,38 +33,20 @@ const { projects } = Astro.props;
                   height="483"
                 />
 
-                {/* Grain Overlay */}
                 <div class="grain-overlay absolute inset-0 pointer-events-none opacity-30 mix-blend-overlay" />
 
-                {/* Hover Overlay - komplett schwarz mit Info-Text */}
                 <div class="absolute inset-0 flex flex-col items-center justify-center bg-black/0 transition-all duration-400 group-hover:bg-black/95">
                   <p class="mx-6 text-center text-sm text-neutral opacity-0 translate-y-4 transition-all duration-300 delay-100 group-hover:opacity-100 group-hover:translate-y-0">
                     {info}
                   </p>
-                  <div class="mt-4 flex gap-4 opacity-0 translate-y-4 transition-all duration-300 delay-200 group-hover:opacity-100 group-hover:translate-y-0">
-                    {linkSource && (
-                      <a
-                        href={linkSource}
-                        target="_blank"
-                        class="rounded-full border border-neutral/40 px-4 py-2 text-xs text-white transition hover:bg-primary hover:border-primary"
-                      >
-                        Source
-                      </a>
-                    )}
-                    {linkPreview && (
-                      <a
-                        href={linkPreview}
-                        target="_blank"
-                        class="rounded-full border border-neutral/40 px-4 py-2 text-xs text-white transition hover:bg-primary hover:border-primary"
-                      >
-                        Preview
-                      </a>
-                    )}
+                  <div class="mt-4 opacity-0 translate-y-4 transition-all duration-300 delay-200 group-hover:opacity-100 group-hover:translate-y-0">
+                    <span class="rounded-full border border-neutral/40 px-4 py-2 text-xs text-white transition hover:bg-primary hover:border-primary">
+                      View Project
+                    </span>
                   </div>
                 </div>
               </div>
 
-              {/* Card Info - Name + Category */}
               <div class="px-5 py-5">
                 <h3 class="font-serif text-xl font-medium text-primary">
                   {name}
@@ -72,7 +54,7 @@ const { projects } = Astro.props;
                 <p class="mt-1 text-sm text-neutral/50">{category}</p>
               </div>
             </div>
-          </div>
+          </a>
         );
       })
     }
@@ -107,7 +89,6 @@ const { projects } = Astro.props;
 </style>
 
 <script>
-  // Staggered Fade-In
   const cards = document.querySelectorAll('.project-card');
 
   const fadeObserver = new IntersectionObserver(
@@ -124,13 +105,12 @@ const { projects } = Astro.props;
 
   cards.forEach((card) => fadeObserver.observe(card));
 
-  // 3D Tilt + Magnetic Cursor
   const tiltCards = document.querySelectorAll('.tilt-card');
 
   tiltCards.forEach((card) => {
     const el = card as HTMLElement;
 
-    el.addEventListener('mousemove', (e: MouseEvent) => {
+    el.addEventListener('mousemove', (e) => {
       const rect = el.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;

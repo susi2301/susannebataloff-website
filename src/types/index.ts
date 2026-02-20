@@ -3,7 +3,7 @@ export interface SiteConfig {
   description: string;
   lang: string;
   author: string;
-  navLinks: { href: string; text: string }[];
+  navLinks: { href: string; text: string; children?: { text: string; href: string }[] }[];
   socialLinks: { text: string; href: string }[];
   socialImage: string;
   canonicalURL?: string;
@@ -33,10 +33,14 @@ export interface ExperienceProps {
 
 export interface ProjectProps {
   name: string;
+  slug: string;
   summary: string;
   category: string;
   info: string;
+  description: string;
   image: string;
+  gallery?: string[];
+  techStack?: string[];
   linkPreview?: string;
   linkSource?: string;
 }
@@ -47,5 +51,5 @@ export interface AboutProps {
 }
 
 export interface HeaderProps {
-  navLinks: { href: string; text: string }[];
+  navLinks: { href: string; text: string; children?: { text: string; href: string }[] }[];
 }
