@@ -23,7 +23,7 @@ export const SITE_CONFIG: SiteConfig = {
     { text: "Youtube", href: "https://www.youtube.com/@Thirteen-games" },
     { text: "Steam", href: "https://github.com/immois/astro-zen" },
   ],
-  socialImage: "/banner-backround.jpg",
+  socialImage: "/socialImage.png",
   canonicalURL: "https://www.thirteengames.de",
 };
 
