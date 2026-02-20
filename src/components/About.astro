@@ -13,11 +13,9 @@ const { description, image, name, email } = Astro.props;
     <div class="w-auto md:pr-5">
       <div class="text-base text-neutral scroll-text" id="about-text" set:html={description} />
       <div class="mt-10">
-        <a
-          class="inline-block rounded-full bg-primary px-10 py-5 text-sm font-medium text-white transition hover:scale-105"
-          href={"mailto:" + email}
-        >
-          Get in Touch
+        <a class="btn-primary" href={"mailto:" + email}>
+        Get in Touch
+        </a>
         </a>
       </div>
     </div>

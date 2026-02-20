@@ -15,7 +15,7 @@ const { project } = Astro.props;
 const { name, category, description, image, gallery, techStack, linkPreview, linkSource } = project;
 ---
 
-<Layout>
+<Layout pageTitle={name} pageDescription={project.info}>
   <article class="py-12">
 
     {/* Hero Banner */}
@@ -36,24 +36,16 @@ const { name, category, description, image, gallery, techStack, linkPreview, lin
 
     {/* Links */}
     <div class="mb-12 flex gap-4">
-      {linkSource && (
-        <a
-          href={linkSource}
-          target="_blank"
-          class="rounded-full border border-neutral/30 px-6 py-3 text-sm text-white transition hover:bg-primary hover:border-primary"
-        >
-          Source Code
-        </a>
-      )}
-      {linkPreview && (
-        <a
-          href={linkPreview}
-          target="_blank"
-          class="rounded-full border border-neutral/30 px-6 py-3 text-sm text-white transition hover:bg-primary hover:border-primary"
-        >
-          Live Preview
-        </a>
-      )}
+    {linkSource && (
+      <a href={linkSource} target="_blank" class="btn-outline">
+        Source Code
+      </a>
+    )}
+    {linkPreview && (
+      <a href={linkPreview} target="_blank" class="btn-outline">
+        Live Preview
+      </a>
+    )}
     </div>
 
     {/* Description */}

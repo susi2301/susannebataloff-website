@@ -6,6 +6,13 @@ import "@fontsource/fraunces/700.css";
 import { SITE_CONFIG } from "@config";
 import Footer from "@components/Footer.astro";
 
+interface Props {
+  pageDescription?: string;
+  pageTitle?: string;
+}
+
+const { pageDescription, pageTitle } = Astro.props;
+
 const {
   title,
   description,
@@ -17,12 +24,19 @@ const {
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
 } = SITE_CONFIG;
 
+const finalTitle = pageTitle ? `${pageTitle} - Thirteen Games` : title;
+const finalDescription = pageDescription || description;
 const ogImgUrl = canonicalURL + socialImage;
 ---
 
 <!doctype html>
 <html lang={lang} class="scroll-pt-16 scroll-smooth">
   <head>
+    <title>{finalTitle}</title>
+    <meta name="description" content={finalDescription} />
+    <meta property="og:title" content={finalTitle} />
+    <meta property="og:description" content={finalDescription} />
+    
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="author" content={author} />
