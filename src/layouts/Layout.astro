@@ -218,7 +218,7 @@ const ogImgUrl = canonicalURL + socialImage;
       let progress = 0;
 
       const loadingInterval = setInterval(() => {
-        progress += Math.random() * 40 + 30;
+        progress += Math.random() * 50 + 40;
         if (progress > 100) progress = 100;
         if (loadingBar) loadingBar.style.width = progress + '%';
 
@@ -233,7 +233,7 @@ const ogImgUrl = canonicalURL + socialImage;
       // Fallback: hide after 3s max
       setTimeout(() => {
         loadingScreen?.classList.add('hidden');
-      }, 1500);
+      }, 1000);
 
       // ===== SCROLL PROGRESS BAR =====
       const scrollProgress = document.getElementById('scroll-progress');
