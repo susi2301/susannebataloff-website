@@ -2,8 +2,8 @@ import type { SiteConfig, SiteContent } from "../types";
 
 export const SITE_CONFIG: SiteConfig = {
   title: "Thirteen Games - Indie Game Studio",
-  author: "Thirteen Games",
-  description: "Indie Game Developer and founder of Thirteen Games",
+  author: "Thirteen Games - Dani Lipke",
+  description: "Thirteen Games - Indie Game Studio",
   lang: "de",
   navLinks: [
     {
@@ -41,26 +41,26 @@ export const SITE_CONTENT: SiteContent = {
       startDate: "January 2026",
       endDate: "To this Day",
       summary: [
-        "I founded Thirteen Games with the start of my first project",
+        "Founded Thirteen Games with the start of my first project",
       ],
     },
     {
       company: "",
       position: "",
       startDate: "",
-      endDate: "8",
+      endDate: "",
       summary: [
-        "I designed and developed a mobile application using Flutter, allowing it to be deployed on both Android and iOS with a single codebase. This reduced development time by 50% and maintenance costs by 30%, facilitating a consistent user experience on both platforms.",
-        "I integrated biometric authentication and data encryption, significantly improving the security of user data. This implementation resulted in a 40% increase in user trust and a 25% reduction in unauthorized access attempts.",
+        "",
+        "",
       ],
     },
     {
-      company: "Driveer",
-      position: "Frontend Developer",
-      startDate: "Jun 2015",
-      endDate: "Oct 2016",
+      company: "",
+      position: "",
+      startDate: "",
+      endDate: "",
       summary:
-        "Developed and integrated a real-time vehicle tracking system using WebSockets, improving accuracy and data update in the application. This functionality increased user satisfaction by 30% and reduced customer service inquiries by 25%.",
+        "",
     },
   ],
   projects: [
