@@ -93,7 +93,7 @@ export const SITE_CONTENT: SiteContent = {
     image: "/simple-light-flicker.png",
     gallery: ["/simple-light-flicker.png"],
     techStack: ["Unity", "C#"],
-    youtubeId: "kek60hHZMScY",
+    youtubeId: "kek60hHZMSc",
     linkPreview: "/",
     linkSource: "https://assetstore.unity.com/packages/slug/361974",
     },
