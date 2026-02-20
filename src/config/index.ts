@@ -1,9 +1,9 @@
 import type { SiteConfig, SiteContent } from "../types";
 
 export const SITE_CONFIG: SiteConfig = {
-  title: "Thirteen Games - Indie Game Studio",
-  author: "Thirteen Games - Dani Lipke",
-  description: "Thirteen Games - Indie Game Studio",
+  title: "Susanne Bataloff - 3D Game Artist",
+  author: "Susanne Bataloff",
+  description: "Susanne Bataloff - 3D Game Artist",
   lang: "de",
   navLinks: [
   {
@@ -30,10 +30,10 @@ export const SITE_CONFIG: SiteConfig = {
 
 export const SITE_CONTENT: SiteContent = {
   hero: {
-    name: "Thirteen Games",
-    specialty: "INDIE GAME STUDIO",
+    name: "Susanne Bataloff",
+    specialty: "3D Game Artist",
     summary: "Cologne Germany",
-    email: "Danijasonlipke@gmail.com",
+    email: "susannebataloff@gmail.com",
   },
   experience: [
     {
