@@ -83,7 +83,7 @@ export const SITE_CONTENT: SiteContent = {
     info: "Sounddesign for the Indie Title 'Staged' developed by ProjectSunset UG",
     linkPreview: "https://store.steampowered.com/app/3534100/Staged/",
     linkSource: "https://store.steampowered.com/app/3534100/Staged/",
-    image: "/Comingsoon-banner.png",
+    image: "/staged-keyart.png",
   },
   ],
   about: {
