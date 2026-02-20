@@ -59,10 +59,10 @@ export const SITE_CONTENT: SiteContent = {
   ],
  projects: [
   {
-    name: "PROJECT X",
+    name: "You should choose",
     category: "Game Development",
     summary: "WORK IN PROGRESS",
-    info: "A mysterious upcoming title currently in early development. More details coming soon.",
+    info: "You should choose - upcoming title currently in early development. More details coming soon.",
     linkPreview: "/",
     linkSource: "https://assetstore.unity.com/packages/slug/361974",
     image: "/simple-light-flicker.png",
@@ -77,13 +77,13 @@ export const SITE_CONTENT: SiteContent = {
     image: "/simple-light-flicker.png",
   },
   {
-    name: "ClonTagram",
+    name: "Staged",
     category: "Sounddesign",
     summary: "A social network that replicates the features of Instagram",
-    info: "Full-stack social media clone featuring real-time feeds, image uploads, stories, and user interactions built from scratch.",
+    info: "Sounddesign for the Indie Title 'Staged' developed by ProjectSunset UG",
     linkPreview: "/",
     linkSource: "https://github.com/immois/astro-zen",
-    image: "/clone-ig.png",
+    image: "/Comingsoon-banner.png",
   },
   ],
   about: {
