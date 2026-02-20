@@ -80,6 +80,17 @@ const { projects } = Astro.props;
 </Section>
 
 <style>
+  .project-card {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+
+  .project-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+  }
+
   .tilt-card {
     transform-style: preserve-3d;
     will-change: transform;
@@ -87,12 +98,6 @@ const { projects } = Astro.props;
 
   .tilt-card:hover {
     box-shadow: 0 20px 50px rgba(149, 24, 16, 0.2);
-  }
-
-  .project-card.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
   }
 
   .grain-overlay {
