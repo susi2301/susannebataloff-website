@@ -11,11 +11,12 @@ const games = [
     youtubeId: "cmVdCQMgNXQ",
   },
   {
-    name: "Snicer Micer",
-    description: "My first ever game jam, where I gained my first experience working under a strict time limit. The game is inspired by a well known kitchen gadget and is about cutting vegetables as fast as possible under time pressure.",
-    image: "/snicermicer.png",
-    itchLink: "https://dambthirteen.itch.io/snicer-micer",
-    youtubeId: "hj9Yoa_YYqI",
+    name: "DEIN SPIEL NAME",
+    description: "Beschreibung...",
+    image: "/gamejam1.png",
+    itchLink: "https://itch.io/DEIN-LINK",
+    youtubeId: "DEINE_VIDEO_ID",
+    sketchfabId: "76b125b7e5eb4747888586676295c9e8",
   },
 ];
 ---
@@ -57,6 +58,24 @@ const games = [
               class="h-auto w-full object-cover transition-transform duration-500 hover:scale-105"
             />
           </div>
+
+          {/* 3D Model */}
+          {game.sketchfabId && (
+            <div class="mb-8">
+              <h3 class="mb-4 font-serif text-lg font-bold text-white">3D Model</h3>
+              <div class="w-full overflow-hidden rounded-lg" style="aspect-ratio: 16/9;">
+                <iframe
+                  title={`${game.name} 3D Model`}
+                  src={`https://sketchfab.com/models/${game.sketchfabId}/embed?autostart=1&ui_theme=dark`}
+                  width="100%"
+                  height="100%"
+                  frameborder="0"
+                  allow="autoplay; fullscreen; xr-spatial-tracking"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            </div>
+          )}
 
           {/* YouTube Video */}
           {game.youtubeId && (
