@@ -64,13 +64,282 @@ const ogImgUrl = canonicalURL + socialImage;
         from { opacity: 0; transform: translateY(10px); }
         to { opacity: 1; transform: translateY(0); }
       }
+
+      /* Custom XP-style Cursor */
+      *, *::before, *::after {
+        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='28' viewBox='0 0 20 28'%3E%3Cpath d='M1 1 L1 22 L6 17 L10 25 L13 23.5 L9 16 L15 16 Z' fill='white' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E"), auto !important;
+      }
+
+      a, button, [role="button"], input[type="submit"], .tilt-card {
+        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='26' viewBox='0 0 22 26'%3E%3Cpath d='M6 1 L6 11 L3 8 L3 13 L11 21 L11 15 L14 18 L14 1 Z' fill='white' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M8 5 L8 10' stroke='black' stroke-width='0.5'/%3E%3C/svg%3E"), pointer !important;
+      }
+
+      /* Loading Screen */
+      #loading-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: #0E0D0C;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.6s ease, visibility 0.6s ease;
+      }
+
+      #loading-screen.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      #loading-logo {
+        animation: pulse-logo 1.5s ease-in-out infinite;
+      }
+
+      @keyframes pulse-logo {
+        0%, 100% { transform: scale(1); opacity: 0.8; }
+        50% { transform: scale(1.05); opacity: 1; }
+      }
+
+      #loading-bar-container {
+        width: 200px;
+        height: 3px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 2px;
+        margin-top: 30px;
+        overflow: hidden;
+      }
+
+      #loading-bar {
+        height: 100%;
+        width: 0%;
+        background: #951810;
+        border-radius: 2px;
+        transition: width 0.3s ease;
+      }
+
+      /* Scroll Progress Bar */
+      #scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: #951810;
+        z-index: 9998;
+        width: 0%;
+        transition: width 0.05s linear;
+      }
+
+      /* Back to Top */
+      #back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 100;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: #951810;
+        color: white;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        pointer-events: none;
+      }
+
+      #back-to-top.visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+      #back-to-top:hover {
+        background: #b91c14;
+        transform: translateY(-2px);
+      }
+
+      /* Particles */
+      #particles-canvas {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      body > *:not(#loading-screen):not(#scroll-progress):not(#particles-canvas):not(#back-to-top) {
+        position: relative;
+        z-index: 2;
+      }
     </style>
   </head>
   <body class="bg-black font-sans">
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+      <img
+        id="loading-logo"
+        src="/logo-thirteengames.png"
+        alt="Thirteen Games"
+        width="180"
+        height="180"
+      />
+      <div id="loading-bar-container">
+        <div id="loading-bar"></div>
+      </div>
+    </div>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Particles -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" aria-label="Back to top">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </button>
+
     <Header navLinks={navLinks} />
     <main class="mx-auto max-w-3xl px-5">
       <slot />
     </main>
     <Footer author={author} socialLinks={socialLinks} />
+
+    <script>
+      // ===== LOADING SCREEN =====
+      const loadingScreen = document.getElementById('loading-screen');
+      const loadingBar = document.getElementById('loading-bar');
+      let progress = 0;
+
+      const loadingInterval = setInterval(() => {
+        progress += Math.random() * 25 + 10;
+        if (progress > 100) progress = 100;
+        if (loadingBar) loadingBar.style.width = progress + '%';
+
+        if (progress >= 100) {
+          clearInterval(loadingInterval);
+          setTimeout(() => {
+            loadingScreen?.classList.add('hidden');
+          }, 400);
+        }
+      }, 200);
+
+      // Fallback: hide after 3s max
+      setTimeout(() => {
+        loadingScreen?.classList.add('hidden');
+      }, 3000);
+
+      // ===== SCROLL PROGRESS BAR =====
+      const scrollProgress = document.getElementById('scroll-progress');
+
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        if (scrollProgress) scrollProgress.style.width = scrollPercent + '%';
+      }, { passive: true });
+
+      // ===== BACK TO TOP =====
+      const backToTop = document.getElementById('back-to-top');
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+          backToTop?.classList.add('visible');
+        } else {
+          backToTop?.classList.remove('visible');
+        }
+      }, { passive: true });
+
+      backToTop?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // ===== PARTICLES (Dust/Fireflies) =====
+      const canvas = document.getElementById('particles-canvas') as HTMLCanvasElement;
+      const ctx = canvas?.getContext('2d');
+
+      interface Particle {
+        x: number;
+        y: number;
+        size: number;
+        speedX: number;
+        speedY: number;
+        opacity: number;
+        opacityDir: number;
+        color: string;
+      }
+
+      let particles: Particle[] = [];
+      let animationId: number;
+
+      function resizeCanvas() {
+        if (!canvas) return;
+        canvas.width = window.innerWidth;
+        canvas.height = document.documentElement.scrollHeight;
+      }
+
+      function createParticles() {
+        if (!canvas) return;
+        particles = [];
+        const count = Math.floor((canvas.width * canvas.height) / 25000);
+
+        for (let i = 0; i < count; i++) {
+          const isBright = Math.random() > 0.7;
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: isBright ? Math.random() * 2.5 + 1 : Math.random() * 1.5 + 0.5,
+            speedX: (Math.random() - 0.5) * 0.3,
+            speedY: (Math.random() - 0.5) * 0.2 - 0.1,
+            opacity: Math.random() * 0.5 + 0.1,
+            opacityDir: (Math.random() - 0.5) * 0.008,
+            color: isBright ? '#951810' : '#FDF5DB',
+          });
+        }
+      }
+
+      function animateParticles() {
+        if (!ctx || !canvas) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach((p) => {
+          p.x += p.speedX;
+          p.y += p.speedY;
+          p.opacity += p.opacityDir;
+
+          if (p.opacity <= 0.05 || p.opacity >= 0.6) p.opacityDir *= -1;
+          if (p.x < 0) p.x = canvas.width;
+          if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height;
+          if (p.y > canvas.height) p.y = 0;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = p.opacity;
+          ctx.fill();
+        });
+
+        ctx.globalAlpha = 1;
+        animationId = requestAnimationFrame(animateParticles);
+      }
+
+      if (canvas && ctx) {
+        resizeCanvas();
+        createParticles();
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+          resizeCanvas();
+          createParticles();
+        });
+      }
+    </script>
   </body>
 </html>
