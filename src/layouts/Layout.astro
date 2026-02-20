@@ -41,6 +41,30 @@ const ogImgUrl = canonicalURL + socialImage;
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImgUrl} />
+
+    <style>
+      @view-transition {
+        navigation: auto;
+      }
+
+      ::view-transition-old(root) {
+        animation: fade-out 0.3s ease-in-out;
+      }
+
+      ::view-transition-new(root) {
+        animation: fade-in 0.3s ease-in-out;
+      }
+
+      @keyframes fade-out {
+        from { opacity: 1; transform: translateY(0); }
+        to { opacity: 0; transform: translateY(-10px); }
+      }
+
+      @keyframes fade-in {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
   </head>
   <body class="bg-black font-sans">
     <Header navLinks={navLinks} />

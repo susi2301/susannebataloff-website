@@ -27,27 +27,91 @@ const { name, specialty, summary } = Astro.props;
 
   <div class="bg-black px-6 py-8">
     <h1 class="font-serif text-5xl font-bold text-white sm:text-7xl md:text-8xl">
-      {name}
+      <span id="typewriter-name" class="inline-block"></span>
+      <span class="typewriter-cursor">|</span>
     </h1>
     <p class="mt-4 font-serif text-2xl font-bold text-primary sm:text-3xl md:text-4xl">
-      {specialty}
+      <span id="typewriter-specialty" class="inline-block"></span>
     </p>
   </div>
 
   <div class="max-w-2xl mx-auto px-6 py-10">
-    <p class="mb-10 text-base text-neutral md:text-lg">
+    <p class="mb-10 text-base text-neutral md:text-lg scroll-reveal" id="hero-summary">
       {summary}
     </p>
   </div>
 </section>
 
-<script>
-  const banner = document.getElementById('parallax-banner');
+<style>
+  .typewriter-cursor {
+    animation: blink 0.7s step-end infinite;
+    font-weight: 100;
+  }
 
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .scroll-reveal {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  .scroll-reveal.is-visible {
+    opacity: 1;
+  }
+</style>
+
+<script define:vars={{ name, specialty }}>
+  function typeWriter(element, text, speed, callback) {
+    let i = 0;
+    function type() {
+      if (i < text.length) {
+        element.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, speed);
+      } else if (callback) {
+        callback();
+      }
+    }
+    type();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const nameEl = document.getElementById('typewriter-name');
+    const specialtyEl = document.getElementById('typewriter-specialty');
+    const cursor = document.querySelector('.typewriter-cursor');
+
+    if (nameEl && specialtyEl) {
+      typeWriter(nameEl, name, 80, () => {
+        if (cursor) cursor.remove();
+        typeWriter(specialtyEl, specialty, 60);
+      });
+    }
+  });
+</script>
+
+<script>
+  // Parallax Banner
+  const banner = document.getElementById('parallax-banner');
   window.addEventListener('scroll', () => {
     if (!banner) return;
     const scrollY = window.scrollY;
-    const speed = 0.4;
-    banner.style.transform = `translateY(${scrollY * speed}px)`;
+    banner.style.transform = `translateY(${scrollY * 0.4}px)`;
   }, { passive: true });
+
+  // Scroll Reveal
+  const revealElements = document.querySelectorAll('.scroll-reveal');
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+  revealElements.forEach((el) => revealObserver.observe(el));
 </script>
