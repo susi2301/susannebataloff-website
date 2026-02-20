@@ -91,7 +91,7 @@ const { description, image, name, email } = Astro.props;
       const sectionHeight = rect.height;
 
       chars.forEach((char, index) => {
-        const progress = (windowHeight - sectionTop + 300) / (sectionHeight * 0.6);
+        const progress = (windowHeight - sectionTop + 50) / (sectionHeight * 0.8);
         const charThreshold = index / chars.length;
 
         if (progress > charThreshold) {
