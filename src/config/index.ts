@@ -8,7 +8,7 @@ export const SITE_CONFIG: SiteConfig = {
   navLinks: [
   {
     text: "Projects",
-    href: "/#projects",
+    href: "/projects",
     children: [
       { text: "You should choose", href: "/projects/you-should-choose" },
       { text: "Simple Light Flicker", href: "/projects/simple-light-flicker" },

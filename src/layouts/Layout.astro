@@ -9,9 +9,10 @@ import Footer from "@components/Footer.astro";
 interface Props {
   pageDescription?: string;
   pageTitle?: string;
+  wide?: boolean;
 }
 
-const { pageDescription, pageTitle } = Astro.props;
+const { pageDescription, pageTitle, wide = false } = Astro.props;
 
 const {
   title,
@@ -220,7 +221,7 @@ const ogImgUrl = canonicalURL + socialImage;
     </button>
 
     <Header navLinks={navLinks} />
-    <main class="mx-auto max-w-3xl px-5">
+    <main class={`mx-auto px-5 ${wide ? 'max-w-5xl' : 'max-w-3xl'}`}>
       <slot />
     </main>
     <Footer author={author} socialLinks={socialLinks} />
