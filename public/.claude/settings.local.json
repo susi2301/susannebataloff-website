@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm build *)",
+      "Bash(pnpm preview *)",
+      "Bash(curl -s http://localhost:4321/)"
+    ]
+  }
+}

@@ -4,7 +4,8 @@
       "Bash(pnpm dev *)",
       "Bash(pnpm install *)",
       "WebFetch(domain:www.thirteengames.de)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(pnpm build *)"
     ]
   }
 }
