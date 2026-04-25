@@ -9,75 +9,23 @@ const { name, specialty, summary } = Astro.props;
 
   <div class="relative h-[420px] md:h-[520px] overflow-hidden w-screen left-1/2 -translate-x-1/2">
     <img
-      src="/banner-backround.jpg"
+      src="/HeaderBackround.png"
       alt=""
       class="absolute inset-0 w-full h-[160%] object-cover will-change-transform"
       id="parallax-banner"
     />
-    <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black"></div>
 
-    {/* Alles zentriert im Banner */}
     <div class="absolute inset-0 flex flex-col items-center justify-center px-6">
       <img
-        src="/logo-thirteengames.png"
-        alt="Thirteen Games Logo"
-        class="h-52 md:h-72 w-auto drop-shadow-2xl mb-6"
+        src="/SusiSchriftzug.png"
+        alt="Susanne Bataloff"
+        class="w-auto max-w-[80%] md:max-w-[60%] drop-shadow-2xl"
       />
-      <h1 class="font-serif text-4xl font-bold text-white sm:text-6xl md:text-7xl">
-        <span id="typewriter-name" class="inline-block"></span>
-        <span class="typewriter-cursor">|</span>
-      </h1>
-      <p class="mt-3 font-serif text-lg font-bold text-primary sm:text-xl md:text-2xl tracking-wider">
-        <span id="typewriter-specialty" class="inline-block"></span>
-      </p>
-      <p class="mt-4 text-sm text-neutral/60">
-        {summary}
-      </p>
     </div>
   </div>
 
 </section>
-
-<style>
-  .typewriter-cursor {
-    animation: blink 0.7s step-end infinite;
-    font-weight: 100;
-  }
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-</style>
-
-<script define:vars={{ name, specialty }}>
-  function typeWriter(element, text, speed, callback) {
-    let i = 0;
-    function type() {
-      if (i < text.length) {
-        element.textContent += text.charAt(i);
-        i++;
-        setTimeout(type, speed);
-      } else if (callback) {
-        callback();
-      }
-    }
-    type();
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const nameEl = document.getElementById('typewriter-name');
-    const specialtyEl = document.getElementById('typewriter-specialty');
-    const cursor = document.querySelector('.typewriter-cursor');
-
-    if (nameEl && specialtyEl) {
-      typeWriter(nameEl, name, 80, () => {
-        if (cursor) cursor.remove();
-        typeWriter(specialtyEl, specialty, 60);
-      });
-    }
-  });
-</script>
 
 <script>
   const banner = document.getElementById('parallax-banner');
