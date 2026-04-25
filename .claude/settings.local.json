@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(pnpm dev *)",
-      "Bash(pnpm install *)"
+      "Bash(pnpm install *)",
+      "WebFetch(domain:www.thirteengames.de)",
+      "Read(//tmp/**)"
     ]
   }
 }

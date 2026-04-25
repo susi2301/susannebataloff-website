@@ -2,144 +2,321 @@
 import { SITE_CONTENT } from "@config";
 import Hero from "@components/Hero.astro";
 import Layout from "@layouts/Layout.astro";
-import { Image } from "astro:assets";
 import "../styles/global.css";
-
-const featured = SITE_CONTENT.projects[0];
-
-const disciplines = [
-  {
-    title: "3D Game Art",
-    desc: "Modeling, texturing, and environment art crafted for immersive game worlds.",
-    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L3 8.25l9 5.25 9-5.25L12 3z"/><path d="M3 15.75l9 5.25 9-5.25"/><path d="M3 12l9 5.25 9-5.25"/></svg>`,
-  },
-  {
-    title: "Game Development",
-    desc: "Full game development in Unity with C#, from concept to release-ready build.",
-    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="3"/><path d="M8 12h4m-2-2v4M14 12h2"/></svg>`,
-  },
-  {
-    title: "Sound Design",
-    desc: "Atmospheric SFX, ambient soundscapes, and dynamic audio that breathe life into gameplay.",
-    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`,
-  },
-];
 ---
 
-<Layout>
+<Layout fullscreen>
   <Hero {...SITE_CONTENT.hero} />
 
-  <!-- STUDIO / DISCIPLINES -->
-  <section class="py-24 border-t border-neutral/10">
-    <div class="mb-14 text-center">
-      <div class="mx-auto mb-4 h-px w-12 bg-primary/50"></div>
-      <h2 class="font-serif text-4xl font-bold tracking-tight text-white">Studio</h2>
-      <p class="mt-3 text-sm text-neutral/40">Thirteen Games · Independent · Cologne, Germany</p>
+  <!-- ===== YOU SHOULD CHOOSE ===== -->
+  <section class="game-panel" id="you-should-choose">
+    <div class="panel-bg-wrap">
+      <img src="/Comingsoon-banner.png" alt="You Should Choose" class="panel-bg" />
     </div>
-    <div class="grid grid-cols-1 gap-5 sm:grid-cols-3">
-      {disciplines.map(({ title, desc, icon }, i) => (
-        <div
-          class="discipline-card rounded-xl border border-neutral/10 bg-white/[0.02] p-8 transition-all duration-300 hover:border-primary/30 hover:bg-primary/5"
-          style={`transition-delay: ${i * 80}ms;`}
-        >
-          <div class="mb-5 text-primary" set:html={icon} />
-          <h3 class="font-serif text-lg font-bold text-white mb-2">{title}</h3>
-          <p class="text-sm text-neutral/50 leading-relaxed">{desc}</p>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <!-- FEATURED SPOTLIGHT -->
-  <section class="pb-24">
-    <div class="mb-8">
-      <p class="text-xs tracking-widest uppercase text-primary/70 mb-2">Highlight</p>
-      <h2 class="font-serif text-3xl font-bold text-white">Latest Work</h2>
-    </div>
-    <a
-      href={`/projects/${featured.slug}`}
-      class="spotlight-link group relative block overflow-hidden rounded-xl border border-neutral/10 transition-all duration-300 hover:border-primary/30"
-    >
-      <div class="relative h-72 sm:h-[420px] overflow-hidden">
-        <Image
-          src={featured.image}
-          alt={featured.name}
-          width={900}
-          height={500}
-          class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-        <div class="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
-        <div class="absolute bottom-0 left-0 p-8 sm:p-12">
-          <span class="inline-block mb-2 text-xs font-medium uppercase tracking-widest text-primary">
-            {featured.category}
-          </span>
-          <h3 class="font-serif text-3xl sm:text-4xl font-bold text-white leading-tight">
-            {featured.name}
-          </h3>
-          <p class="mt-3 max-w-md text-sm text-neutral/60 leading-relaxed">{featured.summary}</p>
-          <span class="mt-6 inline-flex items-center gap-2 text-sm text-white/80 transition-all duration-300 group-hover:text-white group-hover:gap-4">
-            Explore Project
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
-          </span>
+    <div class="panel-sweep-line"></div>
+    <div class="panel-gradient"></div>
+    <div class="panel-content">
+      <div class="panel-inner">
+        <span class="panel-eyebrow">01 — Game Development</span>
+        <h2 class="panel-title">You Should Choose</h2>
+        <p class="panel-tagline">
+          An upcoming title about meaningful choices — currently in early
+          development at Thirteen Games.
+        </p>
+        <div class="panel-actions">
+          <a href="/projects/you-should-choose" class="btn-primary">Discover</a>
+          <a href="https://store.steampowered.com" target="_blank" class="btn-outline">
+            Wishlist on Steam
+          </a>
         </div>
       </div>
-    </a>
+    </div>
+    <div class="panel-scroll-hint">
+      <div class="scroll-line-panel"></div>
+    </div>
   </section>
 
-  <!-- CTA -->
-  <section class="pb-32 border-t border-neutral/10 pt-16 text-center">
-    <p class="mb-2 font-serif text-2xl font-bold text-white">More than just games.</p>
-    <p class="mb-8 text-sm text-neutral/50">Discover every project, asset, and collaboration by Thirteen Games.</p>
-    <a href="/projects" class="btn-primary inline-flex items-center gap-3">
-      All Projects
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="9 18 15 12 9 6" />
-      </svg>
-    </a>
+  <!-- ===== SIMPLE LIGHT FLICKER ===== -->
+  <section class="game-panel panel-reverse" id="simple-light-flicker">
+    <div class="panel-bg-wrap">
+      <img src="/simple-light-flicker.png" alt="Simple Light Flicker" class="panel-bg" />
+    </div>
+    <div class="panel-sweep-line"></div>
+    <div class="panel-gradient"></div>
+    <div class="panel-content">
+      <div class="panel-inner">
+        <span class="panel-eyebrow">02 — Unity Asset</span>
+        <h2 class="panel-title">Simple Light Flicker</h2>
+        <p class="panel-tagline">
+          A lightweight Unity tool that adds dynamic flickering to any light
+          source — perfect for ambience and atmosphere.
+        </p>
+        <div class="panel-actions">
+          <a href="/projects/simple-light-flicker" class="btn-primary">Discover</a>
+          <a
+            href="https://assetstore.unity.com/packages/slug/361974"
+            target="_blank"
+            class="btn-outline"
+          >
+            Asset Store
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="panel-scroll-hint">
+      <div class="scroll-line-panel"></div>
+    </div>
   </section>
+
+  <!-- ===== STAGED ===== -->
+  <section class="game-panel" id="staged">
+    <div class="panel-bg-wrap">
+      <img src="/staged-keyart.png" alt="Staged" class="panel-bg" />
+    </div>
+    <div class="panel-sweep-line"></div>
+    <div class="panel-gradient"></div>
+    <div class="panel-content">
+      <div class="panel-inner">
+        <span class="panel-eyebrow">03 — Sound Design</span>
+        <h2 class="panel-title">Staged</h2>
+        <p class="panel-tagline">
+          Sound design for the indie title Staged by ProjectSunset UG —
+          atmospheric audio from ambience to interactive sound effects.
+        </p>
+        <div class="panel-actions">
+          <a href="/projects/staged" class="btn-primary">Discover</a>
+          <a
+            href="https://store.steampowered.com/app/3534100/Staged/"
+            target="_blank"
+            class="btn-outline"
+          >
+            View on Steam
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </Layout>
 
 <style>
-  .discipline-card {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease, border-color 0.3s ease, background-color 0.3s ease;
+  /* ===== FULL-SCREEN GAME PANELS ===== */
+  .game-panel {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
   }
 
-  .discipline-card.is-visible {
+  /* Parallax wrapper — moves via JS, no transition */
+  .panel-bg-wrap {
+    position: absolute;
+    inset: 0;
+    will-change: transform;
+  }
+
+  .panel-bg {
+    position: absolute;
+    top: -10%;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .game-panel:hover .panel-bg {
+    transform: scale(1.05);
+  }
+
+  /* Dual-axis gradient: bottom-to-top + left-to-transparent for text legibility */
+  .panel-gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, rgba(14,13,12,0.82) 0%, rgba(14,13,12,0.45) 45%, transparent 75%),
+      linear-gradient(to top, rgba(14,13,12,0.97) 0%, rgba(14,13,12,0.65) 28%, rgba(14,13,12,0.15) 65%, transparent 100%);
+  }
+
+  .panel-content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    padding: 0 5rem 7rem;
+  }
+
+  @media (max-width: 768px) {
+    .panel-content {
+      padding: 0 1.75rem 4.5rem;
+    }
+  }
+
+  .panel-inner {
+    position: relative;
+    isolation: isolate;
+    max-width: 740px;
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 1.1s ease, transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Soft dark backdrop behind text block */
+  .panel-inner::before {
+    content: '';
+    position: absolute;
+    left: -2.5rem;
+    right: -1.5rem;
+    top: -1.5rem;
+    bottom: -1.5rem;
+    background: radial-gradient(ellipse at 25% 60%, rgba(14,13,12,0.72) 30%, transparent 75%);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .panel-inner.is-visible {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .spotlight-link {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease, border-color 0.3s ease;
+  /* Panel 2 slides in from the right */
+  .panel-reverse .panel-inner {
+    transform: translateX(48px);
   }
 
-  .spotlight-link.is-visible {
-    opacity: 1;
-    transform: translateY(0);
+  .panel-reverse .panel-inner.is-visible {
+    transform: translateX(0);
+  }
+
+  .panel-eyebrow {
+    display: block;
+    font-family: var(--font-display, 'Boldonse', serif);
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #c42218;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 14px rgba(0,0,0,0.9);
+  }
+
+  .panel-title {
+    font-family: var(--font-display, 'Boldonse', serif);
+    font-size: clamp(3.5rem, 8vw, 7.5rem);
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.75rem;
+    text-shadow: 0 4px 28px rgba(0,0,0,0.95), 0 2px 8px rgba(0,0,0,0.8);
+  }
+
+  .panel-tagline {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: rgba(253, 245, 219, 0.72);
+    max-width: 520px;
+    margin-bottom: 3rem;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.9);
+  }
+
+  .panel-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  /* Red sweep line on panel entry */
+  .panel-sweep-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, transparent 0%, #951810 20%, #ff3322 50%, #951810 80%, transparent 100%);
+    z-index: 20;
+    pointer-events: none;
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  @keyframes sweep {
+    0%   { transform: translateX(-100%); opacity: 0; }
+    8%   { opacity: 1; }
+    80%  { opacity: 0.9; }
+    100% { transform: translateX(100%); opacity: 0; }
+  }
+
+  .game-panel.in-view .panel-sweep-line {
+    animation: sweep 1.3s cubic-bezier(0.4, 0, 0.2, 1) 0.05s both;
+  }
+
+  /* Scroll hint between panels */
+  .panel-scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 5rem;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.35;
+  }
+
+  @media (max-width: 768px) {
+    .panel-scroll-hint {
+      display: none;
+    }
+  }
+
+  .scroll-line-panel {
+    width: 1px;
+    height: 56px;
+    background: linear-gradient(to bottom, rgba(253, 245, 219, 0.6), transparent);
+    animation: scroll-pulse-panel 2.5s ease-in-out infinite;
+  }
+
+  @keyframes scroll-pulse-panel {
+    0%, 100% { transform: translateY(0) scaleY(1); opacity: 0.6; }
+    50% { transform: translateY(10px) scaleY(0.5); opacity: 1; }
   }
 </style>
 
 <script>
-  const observer = new IntersectionObserver(
+  // === Panel entry: sweep-line + slide-in ===
+  const panelObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
+          const panel = entry.target as HTMLElement;
+          panel.classList.add('in-view');
+          panel.querySelector('.panel-inner')?.classList.add('is-visible');
+          panelObserver.unobserve(panel);
         }
       });
     },
-    { threshold: 0.1 }
+    { threshold: 0.12 }
   );
 
-  document.querySelectorAll('.discipline-card, .spotlight-link').forEach((el) => {
-    observer.observe(el);
-  });
+  document.querySelectorAll('.game-panel').forEach((p) => panelObserver.observe(p));
+
+  // === Per-panel background parallax ===
+  function updatePanelParallax() {
+    document.querySelectorAll<HTMLElement>('.game-panel').forEach((panel) => {
+      const wrap = panel.querySelector<HTMLElement>('.panel-bg-wrap');
+      if (!wrap) return;
+      const rect = panel.getBoundingClientRect();
+      const center = rect.top + rect.height / 2;
+      const progress = (window.innerHeight / 2 - center) / window.innerHeight;
+      wrap.style.transform = `translateY(${progress * 70}px)`;
+    });
+  }
+
+  window.addEventListener('scroll', updatePanelParallax, { passive: true });
+  window.addEventListener('resize', updatePanelParallax, { passive: true });
+  updatePanelParallax();
 </script>

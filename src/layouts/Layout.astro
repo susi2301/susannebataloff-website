@@ -10,9 +10,10 @@ interface Props {
   pageDescription?: string;
   pageTitle?: string;
   wide?: boolean;
+  fullscreen?: boolean;
 }
 
-const { pageDescription, pageTitle, wide = false } = Astro.props;
+const { pageDescription, pageTitle, wide = false, fullscreen = false } = Astro.props;
 
 const {
   title,
@@ -43,6 +44,9 @@ const ogImgUrl = canonicalURL + socialImage;
     <meta name="author" content={author} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Boldonse&display=swap" rel="stylesheet" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
 
@@ -221,7 +225,7 @@ const ogImgUrl = canonicalURL + socialImage;
     </button>
 
     <Header navLinks={navLinks} />
-    <main class={`mx-auto px-5 ${wide ? 'max-w-5xl' : 'max-w-3xl'}`}>
+    <main class={fullscreen ? 'w-full' : `mx-auto px-5 ${wide ? 'max-w-5xl' : 'max-w-3xl'}`}>
       <slot />
     </main>
     <Footer author={author} socialLinks={socialLinks} />
