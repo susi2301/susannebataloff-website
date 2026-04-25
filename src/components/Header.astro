@@ -6,116 +6,368 @@ type Props = HeaderProps;
 
 const { navLinks } = Astro.props;
 const currentPath = Astro.url.pathname;
+
+// Split nav links: left half and right half around the center logo
+const mid = Math.ceil(navLinks.length / 2);
+const leftLinks = navLinks.slice(0, mid);
+const rightLinks = navLinks.slice(mid);
 ---
 
-<header
-  class="sticky top-0 z-50 flex w-full animate-slide-in items-center justify-between bg-black px-5 py-4"
->
-  {/* Logo links */}
-  <a href="/" class="flex items-center gap-3 transition hover:opacity-80">
-    <img
-      src="/logo-thirteengames.png"
-      alt="Thirteen Games"
-      class="h-10 w-auto"
-    />
-  </a>
+<header class="site-header">
 
-  <button
-    type="button"
-    id="menu-button"
-    class="px-1.5 text-neutral sm:hidden"
-    aria-expanded="false"
-    aria-controls="main-menu"
-  >
-    <Menu />
-  </button>
+  <!-- Background image + overlay -->
+  <div class="header-bg" aria-hidden="true"></div>
+  <div class="header-overlay" aria-hidden="true"></div>
 
-  <nav
-    class="absolute top-20 right-5 hidden rounded-xl border border-neutral/40 bg-black px-4 py-5 text-neutral sm:static sm:block sm:border-0 sm:bg-transparent sm:p-0"
-    id="main-menu"
-  >
-    <ul class="gap-2 sm:flex sm:items-center">
-      {
-        navLinks.map((link) => {
-          const isActive = currentPath === link.href || 
-            (link.children && link.children.some(child => currentPath === child.href));
+  <!-- Desktop layout: left nav | center logo | right nav -->
+  <div class="header-inner">
+
+    <!-- Left nav -->
+    <nav class="header-nav" aria-label="Left navigation">
+      <ul class="nav-list">
+        {leftLinks.map((link) => {
+          const isActive = currentPath === link.href ||
+            (link.children && link.children.some(c => currentPath === c.href));
           return (
-            <li class="relative group">
+            <li class="nav-item-wrap relative group">
               <a
-                class={`nav-item relative block p-2 text-sm font-medium transition-all duration-300 hover:text-white ${
-                  isActive 
-                    ? 'text-white after:absolute after:bottom-0 after:left-2/4 after:h-2 after:w-1 after:-translate-x-2/4 after:text-primary after:opacity-100 after:content-["•"]' 
-                    : 'text-neutral after:absolute after:bottom-0 after:left-2/4 after:h-2 after:w-1 after:-translate-x-2/4 after:text-primary after:opacity-0 after:content-["•"] hover:after:opacity-100'
-                }`}
                 href={link.href}
+                class={`nav-link ${isActive ? 'nav-link--active' : ''}`}
               >
                 {link.text}
                 {link.children && (
-                  <svg class="inline-block ml-1 w-3 h-3 transition-transform group-hover:rotate-180" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg class="nav-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="2 4 6 8 10 4" />
                   </svg>
                 )}
               </a>
               {link.children && (
-                <ul class="dropdown-menu hidden sm:block sm:invisible sm:opacity-0 sm:absolute sm:top-full sm:right-0 sm:mt-1 sm:min-w-48 sm:rounded-lg sm:border sm:border-neutral/20 sm:bg-black sm:py-2 sm:shadow-xl sm:transition-all sm:duration-200 sm:group-hover:visible sm:group-hover:opacity-100 pl-4 sm:pl-0 sm:pointer-events-none sm:group-hover:pointer-events-auto">
-                  {link.children.map((child) => {
-                    const isChildActive = currentPath === child.href;
-                    return (
-                      <li>
-                        <a
-                          href={child.href}
-                          class={`block px-4 py-2 text-sm transition-colors hover:text-white hover:bg-neutral/10 ${
-                            isChildActive ? 'text-white' : 'text-neutral'
-                          }`}
-                        >
-                          {child.text}
-                        </a>
-                      </li>
-                    );
-                  })}
+                <ul class="dropdown">
+                  {link.children.map((child) => (
+                    <li>
+                      <a
+                        href={child.href}
+                        class={`dropdown-link ${currentPath === child.href ? 'text-white' : 'text-neutral'}`}
+                      >
+                        {child.text}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               )}
             </li>
           );
-        })
-      }
+        })}
+      </ul>
+    </nav>
+
+    <!-- Center: Schriftzug -->
+    <a href="/" class="header-brand" aria-label="Home">
+      <img
+        src="/SusiSchriftzug.png"
+        alt="Susanne Bataloff"
+        class="schriftzug"
+      />
+    </a>
+
+    <!-- Right nav -->
+    <nav class="header-nav" aria-label="Right navigation">
+      <ul class="nav-list">
+        {rightLinks.map((link) => {
+          const isActive = currentPath === link.href;
+          return (
+            <li class="nav-item-wrap">
+              <a
+                href={link.href}
+                class={`nav-link ${isActive ? 'nav-link--active' : ''}`}
+              >
+                {link.text}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+
+    <!-- Mobile: hamburger (right side) -->
+    <button
+      type="button"
+      id="menu-button"
+      class="mobile-menu-btn"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <Menu />
+    </button>
+
+  </div>
+
+  <!-- Mobile dropdown -->
+  <nav id="mobile-menu" class="mobile-menu hidden" aria-label="Mobile navigation">
+    <ul>
+      {navLinks.map((link) => (
+        <li>
+          <a href={link.href} class="mobile-link">{link.text}</a>
+          {link.children && (
+            <ul class="mobile-sub">
+              {link.children.map((child) => (
+                <li>
+                  <a href={child.href} class="mobile-sub-link">{child.text}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))}
     </ul>
   </nav>
+
 </header>
 
-<script>
-  const button = document.querySelector("#menu-button");
-  const menu = document.querySelector("#main-menu");
-  const navItems = document.querySelectorAll("#main-menu > ul > li > a");
-
-  const toggleMenu = () => {
-    menu?.classList.toggle("hidden");
-    const isHidden = menu?.classList.contains("hidden");
-    button?.setAttribute("aria-expanded", `${!isHidden}`);
-
-    const dropdowns = menu?.querySelectorAll('.dropdown-menu');
-    dropdowns?.forEach((d) => d.classList.toggle('hidden'));
-  };
-
-  button?.addEventListener("click", toggleMenu);
-
-  navItems.forEach((item) => {
-    const parent = item.closest('li');
-    const hasChildren = parent?.querySelector('.dropdown-menu');
-    if (!hasChildren) {
-      item.addEventListener("click", toggleMenu);
-    }
-  });
-
-  const dropdownLinks = document.querySelectorAll('.dropdown-menu a');
-  dropdownLinks.forEach((link) => {
-    link.addEventListener('click', toggleMenu);
-  });
-</script>
-
 <style>
-  header {
-    animation-timeline: scroll();
-    animation-range: 0 650px;
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+  }
+
+  /* Background image */
+  .header-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('/HeaderBackround.png');
+    background-size: cover;
+    background-position: center top;
+    z-index: 0;
+  }
+
+  /* Dark overlay so nav text stays readable */
+  .header-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(14, 13, 12, 0.72) 0%,
+      rgba(14, 13, 12, 0.55) 100%
+    );
+    backdrop-filter: blur(0px);
+    z-index: 1;
+  }
+
+  /* Inner layout: 3 equal columns */
+  .header-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 0.75rem 2.5rem;
+    gap: 1rem;
+  }
+
+  @media (max-width: 767px) {
+    .header-inner {
+      grid-template-columns: 1fr auto auto;
+      padding: 0.75rem 1.25rem;
+    }
+  }
+
+  /* NAV */
+  .header-nav {
+    display: flex;
+    align-items: center;
+  }
+
+  .header-nav:last-of-type {
+    justify-content: flex-end;
+  }
+
+  @media (max-width: 767px) {
+    .header-nav {
+      display: none;
+    }
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-item-wrap {
+    position: relative;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(253, 245, 219, 0.75);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .nav-link:hover,
+  .nav-link--active {
+    color: #ffffff;
+  }
+
+  .nav-chevron {
+    width: 10px;
+    height: 10px;
+    transition: transform 0.2s ease;
+  }
+
+  .nav-item-wrap:hover .nav-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Dropdown */
+  .dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    min-width: 180px;
+    background: rgba(14, 13, 12, 0.95);
+    border: 1px solid rgba(253, 245, 219, 0.12);
+    border-radius: 0.6rem;
+    padding: 0.4rem 0;
+    list-style: none;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-item-wrap:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .dropdown-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+
+  .dropdown-link:hover {
+    color: #ffffff;
+    background: rgba(253, 245, 219, 0.06);
+  }
+
+  /* CENTER LOGO */
+  .header-brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .schriftzug {
+    height: 52px;
+    width: auto;
+    object-fit: contain;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.7));
+  }
+
+  .header-brand:hover .schriftzug {
+    opacity: 0.85;
+    transform: scale(1.03);
+  }
+
+  @media (max-width: 767px) {
+    .schriftzug {
+      height: 38px;
+    }
+  }
+
+  /* MOBILE BUTTON */
+  .mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: rgba(253, 245, 219, 0.8);
+    padding: 0.25rem;
+  }
+
+  @media (max-width: 767px) {
+    .mobile-menu-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  /* MOBILE DROPDOWN */
+  .mobile-menu {
+    position: relative;
+    z-index: 2;
+    background: rgba(14, 13, 12, 0.97);
+    border-top: 1px solid rgba(253, 245, 219, 0.08);
+    padding: 1rem 1.25rem 1.5rem;
+  }
+
+  .mobile-menu.hidden {
+    display: none;
+  }
+
+  .mobile-link {
+    display: block;
+    padding: 0.6rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(253, 245, 219, 0.8);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(253, 245, 219, 0.06);
+  }
+
+  .mobile-sub {
+    list-style: none;
+    padding: 0.25rem 0 0.5rem 1rem;
+    margin: 0;
+  }
+
+  .mobile-sub-link {
+    display: block;
+    padding: 0.35rem 0;
+    font-size: 0.875rem;
+    color: rgba(253, 245, 219, 0.5);
+    text-decoration: none;
+  }
+
+  .mobile-sub-link:hover {
+    color: #ffffff;
   }
 </style>
+
+<script>
+  const btn = document.getElementById('menu-button');
+  const menu = document.getElementById('mobile-menu');
+
+  btn?.addEventListener('click', () => {
+    const isHidden = menu?.classList.toggle('hidden');
+    btn.setAttribute('aria-expanded', String(!isHidden));
+  });
+
+  // Close on link click
+  menu?.querySelectorAll('a').forEach((a) => {
+    a.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      btn?.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
