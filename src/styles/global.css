@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Be Vietnam Pro", system-ui, sans-serif;
+  --font-sans: "Chewy", system-ui, sans-serif;
   --font-serif: "Fraunces", ui-serif, serif;
   --font-display: "Boldonse", "Fraunces", ui-serif, serif;
 
