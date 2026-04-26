@@ -1,16 +1,23 @@
 ---
 import Section from "./Section.astro";
-import { Image } from "astro:assets";
 import type { AboutProps, HeroProps } from "@types";
 
 type Props = AboutProps & Pick<HeroProps, "name" | "email">;
 
-const { description, image, name, email } = Astro.props;
+const { description, name, email } = Astro.props;
+
+const polaroids = [
+  { src: "/BildDani.png",  rotate: "-4deg",  tx: "0px",   ty: "0px"   },
+  { src: "/BildSusi2.png", rotate: "3deg",   tx: "0px",   ty: "12px"  },
+  { src: "/BildSusi3.png", rotate: "5deg",   tx: "0px",   ty: "6px"   },
+  { src: "/BildSusi4.png", rotate: "-2deg",  tx: "0px",   ty: "-6px"  },
+];
 ---
 
 <Section text="About Me" href="about">
-  <div class="flex flex-col items-center gap-12 md:flex-row md:gap-8">
-    <div class="w-auto md:pr-5">
+  <div class="flex flex-col items-start gap-12 md:flex-row md:items-center md:gap-10">
+
+    <div class="flex-1 min-w-0">
       <div class="font-mono text-base text-black/70 leading-relaxed" set:html={description} />
       <div class="mt-10">
         <a class="btn-primary" href={"mailto:" + email}>
@@ -18,14 +25,52 @@ const { description, image, name, email } = Astro.props;
         </a>
       </div>
     </div>
-    <div class="h-80 w-64 flex-shrink-0 rotate-[5deg] bg-white p-4 md:rotate-[7deg]">
-      <Image
-        class="object-cover"
-        src={image}
-        width="260"
-        height="260"
-        alt={name}
-      />
+
+    <div class="polaroid-grid flex-shrink-0">
+      {polaroids.map(({ src, rotate, tx, ty }) => (
+        <div
+          class="polaroid"
+          style={`transform: rotate(${rotate}) translate(${tx}, ${ty});`}
+        >
+          <img src={src} alt={name} class="polaroid-img" />
+        </div>
+      ))}
     </div>
+
   </div>
 </Section>
+
+<style>
+  .polaroid-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    width: 300px;
+    padding: 1rem 0.5rem;
+  }
+
+  .polaroid {
+    background: #ffffff;
+    padding: 0.6rem 0.6rem 2rem;
+    box-shadow:
+      0 4px 16px rgba(0, 0, 0, 0.10),
+      0 1px 4px rgba(0, 0, 0, 0.06);
+    will-change: transform;
+  }
+
+  .polaroid-img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  @media (max-width: 767px) {
+    .polaroid-grid {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+  }
+</style>
