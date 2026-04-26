@@ -161,7 +161,9 @@ const rightLinks = navLinks.slice(mid);
 
   @media (max-width: 767px) {
     .header-inner {
-      grid-template-columns: 1fr auto auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       padding: 0.75rem 1.25rem;
     }
   }
@@ -200,7 +202,7 @@ const rightLinks = navLinks.slice(mid);
     align-items: center;
     gap: 4px;
     padding: 0.5rem 0.75rem;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     font-weight: 500;
     color: #000000;
     text-decoration: none;
@@ -302,6 +304,8 @@ const rightLinks = navLinks.slice(mid);
       display: flex;
       align-items: center;
       justify-content: center;
+      position: absolute;
+      right: 1.25rem;
     }
   }
 
