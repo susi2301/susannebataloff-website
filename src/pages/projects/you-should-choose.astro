@@ -1,0 +1,855 @@
+---
+import Layout from "@layouts/Layout.astro";
+import "../../styles/global.css";
+
+// ─── Project meta ─────────────────────────────────────────────────────────────
+const project = {
+  title:       "Unreal Engine Project Studies",
+  subtitle:    "I am currently working a lot with UE5 so I wanted to share a small Game Project from my first MA Semester. I worked on the Level including Lighting and Atmosphere, some 3D Props and Characters, Gameplay & Code, Cinematics and Materials/Shaders. I also tried optimizing visuals a bit.",
+  bannerImage: "/UniProjekt/Startseitenbild.png",
+  category:    "01 — Master Projekt",
+  tags:        ["Unreal Engine 5", "Level Design", "Lighting & Atmosphere", "Cinematics", "Materials & Shaders"],
+};
+
+// ─── Section types ────────────────────────────────────────────────────────────
+// To add a new section, push an object into the array below.
+//
+// type 'gallery'  → images: string[]           (1–6 paths in /public)
+// type 'video'    → youtubeId: string | null   (YouTube ID, e.g. "dQw4w9WgXcQ")
+//                   videoSrc:  string | null   (self-hosted .mp4 URL — alternative)
+// type 'model3d'  → embedUrl:  string | null   (Sketchfab / ArtStation embed src)
+//
+// textSide: 'left' | 'right' | 'none'
+//   'left'  → text on the left,  media on the right
+//   'right' → media on the left, text on the right
+//   'none'  → media spans full width, no text column
+// ──────────────────────────────────────────────────────────────────────────────
+type SectionText = { title: string; body: string };
+type Section =
+  | { type: "gallery";  images: string[];        text: SectionText | null; textSide: "left" | "right" | "none" }
+  | { type: "video";    youtubeId: string | null; videoSrc: string | null; text: SectionText | null; textSide: "left" | "right" | "none" }
+  | { type: "model3d";  embedUrl:  string | null; text: SectionText | null; textSide: "left" | "right" | "none" };
+
+const sections: Section[] = [
+  // ── 1. Image Gallery ───────────────────────────────────────────────────────
+  {
+    type: "gallery",
+    images: [
+      "/UniProjekt/Startseitenbild.png",
+      "/UniProjekt/Startseitenbild.png",
+      "/UniProjekt/Startseitenbild.png",
+      "/UniProjekt/Startseitenbild.png",
+    ],
+    text: {
+      title: "Level Design & Environment",
+      body:  "Placeholder — replace with description of the level design, lighting, and atmosphere work.",
+    },
+    textSide: "right",
+  },
+
+  // ── 2. Video ───────────────────────────────────────────────────────────────
+  {
+    type:      "video",
+    youtubeId: null,   // ← insert YouTube ID here, e.g. "dQw4w9WgXcQ"
+    videoSrc:  null,   // ← or self-hosted .mp4 URL
+    text: {
+      title: "Gameplay & Cinematics",
+      body:  "Placeholder — describe the gameplay systems, code, and cinematic sequences here.",
+    },
+    textSide: "left",
+  },
+
+  // ── 3. 3D Viewer ───────────────────────────────────────────────────────────
+  {
+    type:     "model3d",
+    embedUrl: null,    // ← insert Sketchfab or ArtStation embed src URL here
+    text: {
+      title: "3D Model Showcase",
+      body:  "Placeholder — describe the 3D model or environment scene shown in the viewer.",
+    },
+    textSide: "right",
+  },
+];
+---
+
+<Layout pageTitle={project.title} pageDescription={project.subtitle}>
+
+  <!-- ═══════════════════════════════ HERO BANNER ════════════════════════════ -->
+  <section class="proj-hero">
+    <div class="proj-hero-bg">
+      <img
+        src={project.bannerImage}
+        alt={project.title}
+        class="proj-hero-img"
+        id="proj-parallax"
+      />
+      <div class="proj-hero-overlay"></div>
+    </div>
+
+    <div class="proj-hero-content">
+      <span class="proj-category">{project.category}</span>
+      <h1 class="proj-title">{project.title}</h1>
+      <p class="proj-subtitle">{project.subtitle}</p>
+    </div>
+
+    <div class="proj-scroll-hint">
+      <div class="proj-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ TAGS ══════════════════════════════════ -->
+  {project.tags.length > 0 && (
+    <div class="proj-tags-wrap">
+      {project.tags.map((tag) => (
+        <span class="proj-tag">{tag}</span>
+      ))}
+    </div>
+  )}
+
+  <!-- ═══════════════════════════════ SECTIONS ══════════════════════════════ -->
+  {sections.map((section, i) => (
+    <section class={`proj-section ${i % 2 !== 0 ? "proj-section--alt" : ""}`}>
+
+      {/* ── Full-width (no text) ── */}
+      {section.textSide === "none" && (
+        <div class="proj-section-inner">
+          <div class="proj-media proj-media--full">
+            {/* Gallery */}
+            {section.type === "gallery" && (
+              <div class={`proj-gallery proj-gallery--cols-${Math.min((section as any).images.length, 3)}`}>
+                {(section as any).images.slice(0, 6).map((src: string, idx: number) => (
+                  <button
+                    class="proj-thumb"
+                    data-lightbox-src={src}
+                    data-lightbox-group={`section-${i}`}
+                    data-lightbox-idx={idx}
+                    aria-label={`Open image ${idx + 1}`}
+                  >
+                    <img src={src} alt={`${project.title} — image ${idx + 1}`} loading="lazy" />
+                  </button>
+                ))}
+              </div>
+            )}
+            {/* Video */}
+            {section.type === "video" && (
+              (section as any).youtubeId ? (
+                <div class="proj-video-wrap">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${(section as any).youtubeId}`}
+                    title={project.title}
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              ) : (section as any).videoSrc ? (
+                <div class="proj-video-wrap">
+                  <video src={(section as any).videoSrc} controls></video>
+                </div>
+              ) : (
+                <div class="proj-placeholder">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  <span>Video — add <code>youtubeId</code> or <code>videoSrc</code></span>
+                </div>
+              )
+            )}
+            {/* 3D Viewer */}
+            {section.type === "model3d" && (
+              (section as any).embedUrl ? (
+                <div class="proj-viewer-wrap">
+                  <iframe src={(section as any).embedUrl} title="3D Model" allowfullscreen></iframe>
+                </div>
+              ) : (
+                <div class="proj-placeholder">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                  <span>3D Viewer — add <code>embedUrl</code> (Sketchfab / ArtStation)</span>
+                </div>
+              )
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ── Split layout (media + text) ── */}
+      {section.textSide !== "none" && (
+        <div class="proj-section-inner">
+          <div class={`proj-split ${section.textSide === "left" ? "proj-split--text-left" : ""}`}>
+
+            {/* Media column */}
+            <div class="proj-media-col">
+              {/* Gallery */}
+              {section.type === "gallery" && (
+                <div class={`proj-gallery proj-gallery--cols-${Math.min((section as any).images.length, 2)}`}>
+                  {(section as any).images.slice(0, 6).map((src: string, idx: number) => (
+                    <button
+                      class="proj-thumb"
+                      data-lightbox-src={src}
+                      data-lightbox-group={`section-${i}`}
+                      data-lightbox-idx={idx}
+                      aria-label={`Open image ${idx + 1}`}
+                    >
+                      <img src={src} alt={`${project.title} — image ${idx + 1}`} loading="lazy" />
+                    </button>
+                  ))}
+                </div>
+              )}
+              {/* Video */}
+              {section.type === "video" && (
+                (section as any).youtubeId ? (
+                  <div class="proj-video-wrap">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${(section as any).youtubeId}`}
+                      title={project.title}
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                ) : (section as any).videoSrc ? (
+                  <div class="proj-video-wrap">
+                    <video src={(section as any).videoSrc} controls></video>
+                  </div>
+                ) : (
+                  <div class="proj-placeholder">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    <span>Video — add <code>youtubeId</code> or <code>videoSrc</code></span>
+                  </div>
+                )
+              )}
+              {/* 3D Viewer */}
+              {section.type === "model3d" && (
+                (section as any).embedUrl ? (
+                  <div class="proj-viewer-wrap">
+                    <iframe src={(section as any).embedUrl} title="3D Model" allowfullscreen></iframe>
+                  </div>
+                ) : (
+                  <div class="proj-placeholder">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    <span>3D Viewer — add <code>embedUrl</code></span>
+                  </div>
+                )
+              )}
+            </div>
+
+            {/* Text column */}
+            {section.text && (
+              <div class="proj-text-col">
+                <div class="proj-text-accent"></div>
+                <h2 class="proj-text-title">{section.text.title}</h2>
+                <p class="proj-text-body">{section.text.body}</p>
+              </div>
+            )}
+
+          </div>
+        </div>
+      )}
+
+    </section>
+  ))}
+
+  <!-- ═══════════════════════════════ BACK LINK ═════════════════════════════ -->
+  <div class="proj-back-wrap">
+    <a href="/projects" class="proj-back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+      Back to Projects
+    </a>
+  </div>
+
+  <!-- ═══════════════════════════════ LIGHTBOX ══════════════════════════════ -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button id="lb-close" class="lb-close" aria-label="Close">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <button id="lb-prev" class="lb-nav lb-nav--prev" aria-label="Previous">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button id="lb-next" class="lb-nav lb-nav--next" aria-label="Next">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="lb-img-wrap" id="lb-img-wrap">
+      <img id="lb-img" src="" alt="" class="lb-img" />
+    </div>
+    <span id="lb-counter" class="lb-counter"></span>
+    <span class="lb-hint">Click image to zoom · scroll to zoom · drag to pan</span>
+  </div>
+
+</Layout>
+
+<!-- ═══════════════════════════════════ STYLES ══════════════════════════════════ -->
+<style>
+
+  /* ── Hero Banner ─────────────────────────────────────────────────────────── */
+  .proj-hero {
+    position: relative;
+    width: 100vw;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .proj-hero-bg {
+    position: absolute;
+    inset: 0;
+  }
+
+  .proj-hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 160%;
+    object-fit: cover;
+    object-position: center;
+    will-change: transform;
+  }
+
+  .proj-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top,  rgba(14,13,12,0.94) 0%, rgba(14,13,12,0.55) 32%, rgba(14,13,12,0.1) 65%, transparent 100%),
+      linear-gradient(to right, rgba(14,13,12,0.5) 0%, transparent 60%);
+  }
+
+  .proj-hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 5rem 7rem;
+    max-width: 900px;
+  }
+
+  .proj-category {
+    display: block;
+    font-family: var(--font-display, 'Boldonse', serif);
+    font-size: 0.85rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #F4A7B9;
+    margin-bottom: 1.25rem;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+  }
+
+  .proj-title {
+    font-family: var(--font-sans, 'Chewy', sans-serif);
+    font-size: clamp(2.75rem, 7vw, 6rem);
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 4px 28px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.7);
+  }
+
+  .proj-subtitle {
+    font-family: var(--font-mono, 'Fragment Mono', monospace);
+    font-size: 1rem;
+    line-height: 1.75;
+    color: rgba(253,245,219,0.78);
+    max-width: 600px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+  }
+
+  .proj-scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 5rem;
+    z-index: 2;
+    opacity: 0.4;
+  }
+
+  .proj-scroll-line {
+    width: 1px;
+    height: 56px;
+    background: linear-gradient(to bottom, rgba(253,245,219,0.7), transparent);
+    animation: scroll-pulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes scroll-pulse {
+    0%, 100% { transform: translateY(0) scaleY(1);   opacity: 0.6; }
+    50%       { transform: translateY(10px) scaleY(0.5); opacity: 1; }
+  }
+
+  @media (max-width: 768px) {
+    .proj-hero-content { padding: 0 1.75rem 4rem; }
+    .proj-scroll-hint  { display: none; }
+  }
+
+  /* ── Tags ────────────────────────────────────────────────────────────────── */
+  .proj-tags-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+    padding: 2.5rem 2rem 0;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .proj-tag {
+    font-family: var(--font-mono, 'Fragment Mono', monospace);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: #F4A7B9;
+    border: 1px solid rgba(244,167,185,0.35);
+    background: rgba(244,167,185,0.07);
+    border-radius: 999px;
+    padding: 0.3rem 0.9rem;
+  }
+
+  /* ── Sections ────────────────────────────────────────────────────────────── */
+  .proj-section {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6rem 0;
+  }
+
+  .proj-section--alt {
+    background: #FDF5DB;
+  }
+
+  .proj-section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+
+  /* Split grid */
+  .proj-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4.5rem;
+    align-items: center;
+  }
+
+  /* text-left: swap visual order */
+  .proj-split--text-left .proj-media-col { order: 2; }
+  .proj-split--text-left .proj-text-col  { order: 1; }
+
+  @media (max-width: 900px) {
+    .proj-split {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .proj-split--text-left .proj-media-col { order: unset; }
+    .proj-split--text-left .proj-text-col  { order: unset; }
+    .proj-section-inner { padding: 0 1.5rem; }
+  }
+
+  /* ── Gallery ─────────────────────────────────────────────────────────────── */
+  .proj-gallery {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .proj-gallery--cols-1 { grid-template-columns: 1fr; }
+  .proj-gallery--cols-2 { grid-template-columns: 1fr 1fr; }
+  .proj-gallery--cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+  /* First image spans full width in 3-col layout for odd counts */
+  .proj-gallery--cols-3 .proj-thumb:first-child:nth-last-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .proj-thumb {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background: rgba(0,0,0,0.05);
+    border: none;
+    padding: 0;
+    cursor: zoom-in;
+    aspect-ratio: 16 / 10;
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+  }
+
+  .proj-thumb:hover {
+    transform: scale(1.025);
+    box-shadow: 0 12px 40px rgba(244,167,185,0.35), 0 4px 16px rgba(0,0,0,0.12);
+  }
+
+  .proj-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .proj-thumb:hover img {
+    transform: scale(1.06);
+  }
+
+  /* Full-width media */
+  .proj-media--full .proj-gallery--cols-2 { grid-template-columns: 1fr 1fr; }
+  .proj-media--full .proj-gallery--cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+  /* ── Video ───────────────────────────────────────────────────────────────── */
+  .proj-video-wrap {
+    position: relative;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  }
+
+  .proj-video-wrap iframe,
+  .proj-video-wrap video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  /* ── 3D Viewer ───────────────────────────────────────────────────────────── */
+  .proj-viewer-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  }
+
+  .proj-viewer-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  /* ── Placeholder ─────────────────────────────────────────────────────────── */
+  .proj-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    border: 2px dashed rgba(244,167,185,0.4);
+    background: rgba(244,167,185,0.05);
+    color: rgba(14,13,12,0.4);
+    font-family: var(--font-mono, 'Fragment Mono', monospace);
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .proj-placeholder code {
+    font-family: inherit;
+    color: #F4A7B9;
+    background: rgba(244,167,185,0.12);
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+  }
+
+  /* ── Text column ─────────────────────────────────────────────────────────── */
+  .proj-text-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .proj-text-accent {
+    width: 3rem;
+    height: 2px;
+    background: #F4A7B9;
+    border-radius: 2px;
+    opacity: 0.7;
+  }
+
+  .proj-text-title {
+    font-family: var(--font-sans, 'Chewy', sans-serif);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 400;
+    color: #0E0D0C;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .proj-text-body {
+    font-family: var(--font-mono, 'Fragment Mono', monospace);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: rgba(14,13,12,0.65);
+  }
+
+  /* ── Back link ───────────────────────────────────────────────────────────── */
+  .proj-back-wrap {
+    padding: 3rem 3rem 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(14,13,12,0.08);
+  }
+
+  .proj-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono, 'Fragment Mono', monospace);
+    font-size: 0.875rem;
+    color: rgba(14,13,12,0.5);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .proj-back-link:hover {
+    color: #F4A7B9;
+  }
+
+  /* ── Lightbox ────────────────────────────────────────────────────────────── */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(14,13,12,0.96);
+    backdrop-filter: blur(6px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .lightbox.is-open {
+    display: flex;
+  }
+
+  .lb-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.5);
+    transition: color 0.2s ease;
+    padding: 0.5rem;
+  }
+
+  .lb-close:hover { color: #ffffff; }
+
+  .lb-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.35);
+    transition: color 0.2s ease;
+    padding: 0.75rem;
+  }
+
+  .lb-nav:hover { color: #ffffff; }
+  .lb-nav--prev { left: 1rem; }
+  .lb-nav--next { right: 1rem; }
+
+  .lb-img-wrap {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 90vw;
+    max-height: 85vh;
+    cursor: zoom-in;
+    user-select: none;
+  }
+
+  .lb-img-wrap.is-zoomed { cursor: grab; }
+  .lb-img-wrap.is-zoomed:active { cursor: grabbing; }
+
+  .lb-img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    display: block;
+    border-radius: 8px;
+    transition: transform 0.3s cubic-bezier(0.34,1.2,0.64,1);
+    transform-origin: center center;
+    pointer-events: none;
+  }
+
+  .lb-counter {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono, 'Fragment Mono', monospace);
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .lb-hint {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono, 'Fragment Mono', monospace);
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.2);
+    white-space: nowrap;
+  }
+
+</style>
+
+<!-- ═══════════════════════════════════ SCRIPTS ══════════════════════════════════ -->
+<script>
+  // ── Parallax on hero image ──────────────────────────────────────────────────
+  const parallax = document.getElementById('proj-parallax') as HTMLImageElement | null;
+  window.addEventListener('scroll', () => {
+    if (!parallax) return;
+    parallax.style.transform = `translateY(${window.scrollY * 0.45}px)`;
+  }, { passive: true });
+
+  // ── Lightbox ────────────────────────────────────────────────────────────────
+  const lightbox   = document.getElementById('lightbox')!;
+  const lbImg      = document.getElementById('lb-img') as HTMLImageElement;
+  const lbImgWrap  = document.getElementById('lb-img-wrap')!;
+  const lbClose    = document.getElementById('lb-close')!;
+  const lbPrev     = document.getElementById('lb-prev')!;
+  const lbNext     = document.getElementById('lb-next')!;
+  const lbCounter  = document.getElementById('lb-counter')!;
+
+  // Collect all gallery images by group
+  type LBImage = { src: string; alt: string };
+  const groups: Record<string, LBImage[]> = {};
+
+  document.querySelectorAll<HTMLElement>('[data-lightbox-src]').forEach((btn) => {
+    const group = btn.dataset.lightboxGroup ?? 'default';
+    const src   = btn.dataset.lightboxSrc ?? '';
+    const idx   = parseInt(btn.dataset.lightboxIdx ?? '0', 10);
+    if (!groups[group]) groups[group] = [];
+    groups[group][idx] = { src, alt: btn.querySelector('img')?.alt ?? '' };
+  });
+
+  let activeGroup = 'default';
+  let activeIdx   = 0;
+  let zoomScale   = 1;
+  let isDragging  = false;
+  let dragStart   = { x: 0, y: 0 };
+  let translate   = { x: 0, y: 0 };
+  const ZOOM_IN   = 2.2;
+
+  function openLightbox(group: string, idx: number) {
+    activeGroup = group;
+    activeIdx   = idx;
+    zoomScale   = 1;
+    translate   = { x: 0, y: 0 };
+    applyTransform();
+    renderImage();
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('is-open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function renderImage() {
+    const imgs = groups[activeGroup] ?? [];
+    const item = imgs[activeIdx];
+    if (!item) return;
+    lbImg.src = item.src;
+    lbImg.alt = item.alt;
+    lbCounter.textContent = `${activeIdx + 1} / ${imgs.length}`;
+    lbPrev.style.visibility = imgs.length > 1 ? 'visible' : 'hidden';
+    lbNext.style.visibility = imgs.length > 1 ? 'visible' : 'hidden';
+  }
+
+  function applyTransform() {
+    lbImg.style.transform = `translate(${translate.x}px, ${translate.y}px) scale(${zoomScale})`;
+    lbImgWrap.classList.toggle('is-zoomed', zoomScale > 1);
+  }
+
+  function resetZoom() {
+    zoomScale  = 1;
+    translate  = { x: 0, y: 0 };
+    applyTransform();
+  }
+
+  // Click to toggle zoom
+  lbImgWrap.addEventListener('click', (e) => {
+    if (isDragging) return;
+    zoomScale = zoomScale > 1 ? 1 : ZOOM_IN;
+    if (zoomScale === 1) translate = { x: 0, y: 0 };
+    applyTransform();
+  });
+
+  // Scroll to zoom
+  lbImgWrap.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    zoomScale = Math.min(4, Math.max(1, zoomScale - e.deltaY * 0.003));
+    if (zoomScale === 1) translate = { x: 0, y: 0 };
+    applyTransform();
+  }, { passive: false });
+
+  // Drag to pan when zoomed
+  lbImgWrap.addEventListener('mousedown', (e) => {
+    if (zoomScale <= 1) return;
+    isDragging = true;
+    dragStart  = { x: e.clientX - translate.x, y: e.clientY - translate.y };
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    translate  = { x: e.clientX - dragStart.x, y: e.clientY - dragStart.y };
+    applyTransform();
+  });
+
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+  });
+
+  // Navigation
+  lbClose.addEventListener('click', closeLightbox);
+
+  lbPrev.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const imgs = groups[activeGroup] ?? [];
+    activeIdx = (activeIdx - 1 + imgs.length) % imgs.length;
+    resetZoom();
+    renderImage();
+  });
+
+  lbNext.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const imgs = groups[activeGroup] ?? [];
+    activeIdx = (activeIdx + 1) % imgs.length;
+    resetZoom();
+    renderImage();
+  });
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('is-open')) return;
+    if (e.key === 'Escape')      closeLightbox();
+    if (e.key === 'ArrowLeft')  { const imgs = groups[activeGroup] ?? []; activeIdx = (activeIdx - 1 + imgs.length) % imgs.length; resetZoom(); renderImage(); }
+    if (e.key === 'ArrowRight') { const imgs = groups[activeGroup] ?? []; activeIdx = (activeIdx + 1) % imgs.length; resetZoom(); renderImage(); }
+  });
+
+  // Wire up thumbnail buttons
+  document.querySelectorAll<HTMLElement>('[data-lightbox-src]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const group = btn.dataset.lightboxGroup ?? 'default';
+      const idx   = parseInt(btn.dataset.lightboxIdx ?? '0', 10);
+      openLightbox(group, idx);
+    });
+  });
+</script>
