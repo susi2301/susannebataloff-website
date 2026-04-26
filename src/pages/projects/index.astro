@@ -43,7 +43,7 @@ const { projects } = SITE_CONTENT;
               <div class="relative px-6 py-5 border-t border-neutral/10">
                 <div class="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-transparent"></div>
                 <div class="relative">
-                  <h3 class="font-serif text-xl font-medium text-primary">{project.name}</h3>
+                  <h3 class="font-sans text-xl font-medium text-primary">{project.name}</h3>
                   <p class="mt-1 text-sm text-neutral/50 flex items-center gap-2">
                     <span class="inline-block h-1.5 w-1.5 rounded-full bg-primary/60"></span>
                     {project.category}
@@ -59,10 +59,10 @@ const { projects } = SITE_CONTENT;
               <p class="text-xs font-medium uppercase tracking-widest text-primary/70 mb-3">
                 {project.category}
               </p>
-              <h3 class="font-serif text-2xl font-bold text-white mb-4 leading-snug">
+              <h3 class="font-sans text-2xl font-bold text-black mb-4 leading-snug">
                 {project.name}
               </h3>
-              <p class="text-sm text-neutral/60 leading-relaxed mb-6">
+              <p class="font-mono text-sm text-black/60 leading-relaxed mb-6">
                 {project.info}
               </p>
               {project.techStack && project.techStack.length > 0 && (
