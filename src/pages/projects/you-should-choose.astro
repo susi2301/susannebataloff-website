@@ -28,7 +28,10 @@ type SectionText = { title: string; body: string };
 type Section =
   | { type: "gallery";  images: string[];        text: SectionText | null; textSide: "left" | "right" | "none" }
   | { type: "video";    youtubeId: string | null; videoSrc: string | null; text: SectionText | null; textSide: "left" | "right" | "none" }
-  | { type: "model3d";  embedUrl:  string | null; text: SectionText | null; textSide: "left" | "right" | "none" };
+  | { type: "model3d";  embedUrl:  string | null; text: SectionText | null; textSide: "left" | "right" | "none" }
+  // type 'text': text-only section, no media
+  // layout: 'centered' (default, max 680px centred) | 'wide' (max 900px, left-aligned)
+  | { type: "text"; text: SectionText; layout?: "centered" | "wide" };
 
 const sections: Section[] = [
   // ── 1. Image Gallery ───────────────────────────────────────────────────────
@@ -59,7 +62,17 @@ const sections: Section[] = [
     textSide: "left",
   },
 
-  // ── 3. 3D Viewer ───────────────────────────────────────────────────────────
+  // ── 3. Text only ───────────────────────────────────────────────────────────
+  {
+    type:   "text",
+    layout: "centered",   // 'centered' | 'wide'
+    text: {
+      title: "About this Project",
+      body:  "Placeholder — add any additional context, credits, or technical notes here. This section has no media and can be centered or wide.",
+    },
+  },
+
+  // ── 4. 3D Viewer ───────────────────────────────────────────────────────────
   {
     type:     "model3d",
     embedUrl: null,    // ← insert Sketchfab or ArtStation embed src URL here
@@ -110,8 +123,19 @@ const sections: Section[] = [
   {sections.map((section, i) => (
     <section class={`proj-section ${i % 2 !== 0 ? "proj-section--alt" : ""}`}>
 
+      {/* ── Text only ── */}
+      {section.type === "text" && (
+        <div class="proj-section-inner">
+          <div class={`proj-text-block ${ (section as any).layout === "wide" ? "proj-text-block--wide" : "" }`}>
+            <div class="proj-text-accent"></div>
+            <h2 class="proj-text-title">{section.text.title}</h2>
+            <p class="proj-text-body">{section.text.body}</p>
+          </div>
+        </div>
+      )}
+
       {/* ── Full-width (no text) ── */}
-      {section.textSide === "none" && (
+      {section.type !== "text" && section.textSide === "none" && (
         <div class="proj-section-inner">
           <div class="proj-media proj-media--full">
             {/* Gallery */}
@@ -171,7 +195,7 @@ const sections: Section[] = [
       )}
 
       {/* ── Split layout (media + text) ── */}
-      {section.textSide !== "none" && (
+      {section.type !== "text" && section.textSide !== "none" && (
         <div class="proj-section-inner">
           <div class={`proj-split ${section.textSide === "left" ? "proj-split--text-left" : ""}`}>
 
@@ -412,7 +436,7 @@ const sections: Section[] = [
   }
 
   .proj-section--alt {
-    background: #FDF5DB;
+    background: rgba(244, 167, 185, 0.09);
   }
 
   .proj-section-inner {
@@ -466,7 +490,7 @@ const sections: Section[] = [
     border: none;
     padding: 0;
     cursor: zoom-in;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 4 / 3;
     transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
   }
 
@@ -585,6 +609,26 @@ const sections: Section[] = [
     font-size: 0.95rem;
     line-height: 1.8;
     color: rgba(14,13,12,0.65);
+  }
+
+  /* ── Text-only block ────────────────────────────────────────────────────── */
+  .proj-text-block {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .proj-text-block--wide {
+    max-width: 900px;
+    text-align: left;
+  }
+
+  .proj-text-block .proj-text-accent {
+    margin: 0 auto 1.25rem;
+  }
+
+  .proj-text-block--wide .proj-text-accent {
+    margin: 0 0 1.25rem;
   }
 
   /* ── Back link ───────────────────────────────────────────────────────────── */

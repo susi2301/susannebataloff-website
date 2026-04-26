@@ -38,3 +38,44 @@ Two shared button utility classes are defined in `global.css`: `.btn-primary` an
 ### Static assets
 
 All images go in `/public/`. Reference them with a root-relative path (e.g. `/my-image.png`). Project images, gallery images, and the about photo are all stored there.
+
+---
+
+## Project Detail Page Template
+
+New-style project pages live as **static routes** in `src/pages/projects/<slug>.astro`. A static route always overrides the dynamic `[slug].astro` fallback.
+
+**Reference file:** `src/pages/projects/you-should-choose.astro`
+
+To create a new page, copy that file and replace only the `project` meta object and the `sections` array at the top. All styles, lightbox logic, parallax, and scroll effects are inherited unchanged.
+
+### `/NewSite` slash command
+
+Type `/NewSite` to launch the interactive builder. Claude will:
+1. Present the available section types
+2. Ask for page meta (title, category, subtitle, banner image, tags, slug)
+3. Ask for section choices and content
+4. Generate the complete `.astro` file
+
+### Section types
+
+| type | Media | Optional text |
+|------|-------|---------------|
+| `gallery` | 1–6 images, lightbox + zoom/pan | left / right / none |
+| `video` | YouTube (`youtubeId`) or self-hosted (`videoSrc`) | left / right / none |
+| `model3d` | Sketchfab / ArtStation iframe (`embedUrl`) | left / right / none |
+| `text` | — none — | always full-width (`centered` or `wide` layout) |
+
+`textSide: "none"` makes the media span the full section width with no text column.
+
+### Section backgrounds
+- Even sections (0, 2, 4…): white
+- Odd sections (1, 3, 5…): subtle pink `rgba(244,167,185,0.09)`
+
+### Lightbox features (built in, no config needed)
+- Click thumbnail → opens lightbox
+- Click lightbox image → toggles 2.2× zoom
+- Scroll wheel → continuous zoom (1×–4×)
+- Drag → pan when zoomed
+- Arrow keys / buttons → navigate between images
+- Escape → close
