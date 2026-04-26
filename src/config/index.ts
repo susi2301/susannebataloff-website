@@ -5,18 +5,15 @@ export const SITE_CONFIG: SiteConfig = {
   author: "Susanne Bataloff",
   description: "Susanne Bataloff - 3D Game Artist",
   lang: "de",
+  // ─── Nav links ───────────────────────────────────────────────────────────
+  // Add / remove items here to extend the header navigation.
+  // Optional: add a `children` array to turn a link into a dropdown.
+  // The header splits this array in half — left half left of logo, right half right.
+  // ─────────────────────────────────────────────────────────────────────────
   navLinks: [
-  {
-    text: "Projects",
-    href: "/projects",
-    children: [
-      { text: "You should choose", href: "/projects/you-should-choose" },
-      { text: "Simple Light Flicker", href: "/projects/simple-light-flicker" },
-      { text: "Staged", href: "/projects/staged" },
-      { text: "Game Jams", href: "/projects/gamejams" },
-    ],
-  },
-  { text: "About Me", href: "/me" },
+    { text: "Projects", href: "/projects" },
+    { text: "3D Art",   href: "/3d-art" },
+    { text: "About Me", href: "/me" },
   ],
   socialLinks: [
     { text: "LinkedIn", href: "https://www.linkedin.com/in/dani-lipke-066a81372/" },

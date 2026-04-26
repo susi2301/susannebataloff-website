@@ -1,0 +1,52 @@
+---
+import Layout from "@layouts/Layout.astro";
+import "../styles/global.css";
+---
+
+<Layout pageTitle="3D Art" pageDescription="3D Art by Susanne Bataloff — models, sculpts, and environments.">
+  <section class="art-page">
+    <div class="art-header">
+      <div class="accent-line"></div>
+      <h1 class="art-title">3D Art</h1>
+      <p class="art-sub">Coming soon — models, sculpts &amp; environments.</p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .art-page {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem;
+  }
+
+  .art-header {
+    text-align: center;
+  }
+
+  .accent-line {
+    width: 4rem;
+    height: 1px;
+    background: #F4A7B9;
+    opacity: 0.5;
+    margin: 0 auto 1.5rem;
+  }
+
+  .art-title {
+    font-family: var(--font-sans, 'Chewy', sans-serif);
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    font-weight: 700;
+    color: #0E0D0C;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .art-sub {
+    font-family: var(--font-mono, 'Fragment Mono', monospace);
+    font-size: 1rem;
+    color: rgba(14, 13, 12, 0.5);
+  }
+</style>
