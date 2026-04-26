@@ -36,7 +36,7 @@ const { projects } = Astro.props;
                 <div class="grain-overlay absolute inset-0 pointer-events-none opacity-30 mix-blend-overlay" />
 
                 <div class="absolute inset-0 flex flex-col items-center justify-center bg-black/0 transition-all duration-400 group-hover:bg-black/95">
-                  <p class="mx-6 text-center text-sm text-neutral opacity-0 translate-y-4 transition-all duration-300 delay-100 group-hover:opacity-100 group-hover:translate-y-0">
+                  <p class="mx-6 text-center font-mono text-sm text-neutral opacity-0 translate-y-4 transition-all duration-300 delay-100 group-hover:opacity-100 group-hover:translate-y-0">
                     {info}
                   </p>
                   <div class="mt-4 opacity-0 translate-y-4 transition-all duration-300 delay-200 group-hover:opacity-100 group-hover:translate-y-0">
@@ -50,7 +50,7 @@ const { projects } = Astro.props;
               <div class="relative px-5 py-5 border-t border-neutral/10">
               <div class="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-transparent"></div>
               <div class="relative">
-                <h3 class="font-serif text-xl font-medium text-primary">
+                <h3 class="font-sans text-xl font-medium text-primary">
                   {name}
                 </h3>
                 <p class="mt-1 text-sm text-neutral/50 flex items-center gap-2">
